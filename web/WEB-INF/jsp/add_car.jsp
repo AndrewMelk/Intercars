@@ -1,0 +1,84 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Being Java Guys | Spring DI Hello World</title>
+    <style>
+        body {
+            font-size: 20px;
+            color: teal;
+            font-family: Calibri;
+        }
+
+        td {
+            font-size: 15px;
+            color: black;
+            width: 100px;
+            height: 22px;
+            text-align: left;
+        }
+
+        .heading {
+            font-size: 18px;
+            color: white;
+            font: bold;
+            background-color: orange;
+            border: thick;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <br /> <br /> <br /> <b>Being Java Guys | Registration Form </b> <br />
+    <br />
+    <div>
+        <form:form method="post" action="/insert" modelAttribute="car">
+            <table>
+                <tr>
+                    <td>Vehicle Type :</td>
+                    <form:select path="vehicleType">
+                        <form:options items="${vehicleType}" />
+                    </form:select>
+                </tr>
+                <tr>
+                    <td>Body Type :</td>
+                    <form:select path="bodyType">
+                        <form:options items="${bodyType}" />
+                    </form:select>
+                </tr>
+                <tr>
+                    <td>Mark :</td>
+                    <td><form:input path="mark" required="required"/></td>
+                </tr>
+                <tr>
+                    <td>Model :</td>
+                    <td><form:input path="model" /></td>
+                </tr>
+                <tr>
+                    <td>Engine Value :</td>
+                    <td><form:input path="engineValue"/></td>
+                </tr>
+                <tr>
+                    <td>Consumption :</td>
+                    <td><form:input path="consumption"/></td>
+                </tr>
+                <tr>
+                    <td> </td>
+                    <td><input type="submit" value="Save" /></td>
+                </tr>
+                <tr>
+
+                    <td colspan="2"><a href="getList">Click Here to See User List</a></td>
+                </tr>
+            </table>
+        </form:form>
+    </div>
+</center>
+</body>
+</html>
+
