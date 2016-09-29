@@ -1,63 +1,142 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" session="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
+    <spring:url value="/resources/css/bootstrap.min.css" var="bootCSS" ></spring:url>
+    <spring:url value="/resources/css/templatemo-style.css" var="templatmo"/>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/resources/js/select_mark.js"></script>
+    <script src="/resources/js/select_region_city.js"></script>
+    <script src="/resources/js/fill_title.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Being Java Guys | Spring DI Hello World</title>
-    <style>
-        body {
-            font-size: 20px;
-            color: teal;
-            font-family: Calibri;
-        }
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="${bootCSS}"/>
+    <link rel="stylesheet" href="${templatmo}"/>
 
-        td {
-            font-size: 15px;
-            color: black;
-            width: 100px;
-            height: 22px;
-            text-align: left;
-        }
-
-        .heading {
-            font-size: 18px;
-            color: white;
-            font: bold;
-            background-color: orange;
-            border: thick;
-        }
-    </style>
 </head>
 <body>
+<%@ include file="../jspf/header.jspf"%>
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container">
+            <h1>Login to Your Account</h1><br>
+            <form>
+                <input type="text" name="user" placeholder="Username">
+                <input type="password" name="pass" placeholder="Password">
+                <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+            </form>
+
+            <div class="login-help">
+                <a href="#">Register</a> - <a href="#">Forgot Password</a>
+            </div>
+        </div>
+    </div>
+</div>
 <center>
-    <br /> <br /> <br /> <b>Being Java Guys | Registration Form </b> <br />
-    <br />
     <div>
         <form:form method="post" action="/insert" modelAttribute="car">
             <table>
                 <tr>
+                    <td>Title :</td>
+                    <td><form:label id="user" path="username" required="required">Andrew</form:label></td>
+                </tr>
+                <tr>
+                    <td>Title :</td>
+                    <td><form:input id="title" path="title" required="required"></form:input></td>
+                </tr>
+
+                <tr>
                     <td>Vehicle Type :</td>
-                    <form:select path="vehicleType">
+                    <td><form:select path="vehicleType">
                         <form:options items="${vehicleType}" />
-                    </form:select>
+                    </form:select></td>
                 </tr>
                 <tr>
                     <td>Body Type :</td>
-                    <form:select path="bodyType">
+                    <td><form:select path="bodyType">
                         <form:options items="${bodyType}" />
-                    </form:select>
+                    </form:select></td>
                 </tr>
+
+                <tr>
+                    <td>Region :</td>
+                    <td><select id="region">
+                        <option selected value="All">Mark</option>
+                        <c:forEach var="regionList" items="${regionList}">
+                            <option value="${regionList.id}">${regionList.name}</option>
+                        </c:forEach>
+                            <%--<option disabled>----------</option>--%>
+                            <%--<c:forEach var="carMarksTop" items="${carMarksList}">--%>
+                            <%--<option value="${carMarksTop.carMark}">${carMarksTop.carMark}</option>--%>
+                            <%--</c:forEach>--%>
+                    </select></td>
+                </tr>
+
+                <tr>
+                    <td>City :</td>
+                    <td><form:select id="city" path="city">
+                        <option selected value="NULL">City</option>
+                    </form:select></td>
+                </tr>
+
                 <tr>
                     <td>Mark :</td>
-                    <td><form:input path="mark" required="required"/></td>
+                    <td><div class="select">
+                        <form:select id="first-choice" path="mark">
+                            <option selected value="All">Mark</option>
+                            <c:forEach var="carMarksTop" items="${carMarksList}">
+                                <option value="${carMarksTop.carMark}">${carMarksTop.carMark}</option>
+                            </c:forEach>
+                            <%--<option disabled>----------</option>--%>
+                            <%--<c:forEach var="carMarksTop" items="${carMarksList}">--%>
+                            <%--<option value="${carMarksTop.carMark}">${carMarksTop.carMark}</option>--%>
+                            <%--</c:forEach>--%>
+                        </form:select>
+
+
+
+
+                        </td>
                 </tr>
                 <tr>
                     <td>Model :</td>
-                    <td><form:input path="model" /></td>
+                    <td>
+                        <form:select id="second-choice" path="model">
+                            <option selected value="NULL">Model</option>
+                        </form:select></td>
+                </tr>
+                <tr>
+                    <td>Car price ($) :</td>
+                    <td><form:input path="carPrice" required="required"/></td>
+                </tr>
+                <tr>
+                    <td>Mileage :</td>
+                    <td><form:input path="mileage" required="required"/></td>
+                </tr>
+                <tr>
+                    <td>Car year :</td>
+                    <td><form:select path="carYear">
+                        <form:options items="${carYears}" />
+                    </form:select></td>
+                </tr>
+                <tr>
+                    <td>Gear type :</td>
+                    <td><form:select path="transmissionType">
+                        <form:options items="${transmissionTypes}" />
+                    </form:select></td>
+                </tr>
+                <tr>
+                    <td>Type of drive :</td>
+                    <td><form:select path="typeOfDrive">
+                        <form:options items="${typeOfDrive}" />
+                    </form:select></td>
                 </tr>
                 <tr>
                     <td>Engine Value :</td>
