@@ -1,6 +1,7 @@
 package com.melkov.dao;
 
 import com.melkov.domain.Car;
+import com.melkov.domain.SearchBean;
 
 import java.util.List;
 
@@ -41,4 +42,7 @@ public interface CarDao {
                                     String colour,
                                     String description);
     public List<Car> getCarsByMarkModel(String mark, String model);
-}
+    public List<Car> carListByParameters(SearchBean searchBean);
+
+
+    }

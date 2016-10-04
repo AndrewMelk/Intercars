@@ -1,32 +1,18 @@
 package com.melkov.controllers;
 
-import com.melkov.domain.Car;
-import com.melkov.domain.CarMarks;
-import com.melkov.domain.CarModels;
-import com.melkov.domain.User;
-import com.melkov.services.CarMarksService;
-import com.melkov.services.CarModelsService;
-import com.melkov.services.CarService;
-import com.melkov.services.UserService;
+import com.melkov.domain.*;
+import com.melkov.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Controller
+@SessionAttributes({"mark","model"})
 @RequestMapping(value = "/")
 public class MainController {
 
@@ -34,25 +20,32 @@ public class MainController {
 
 	@Autowired
 	UserService userService;
-
 	@Autowired
 	CarService carService;
 	@Autowired
 	CarMarksService carMarksService;
 	@Autowired
 	CarModelsService carModelsService;
+	@Autowired
+	CityService cityService;
+	@Autowired
+	RegionService regionService;
+
+
 
 	@RequestMapping(value = "/getList", method = RequestMethod.GET)
-	public ModelAndView getData() {
+	public ModelAndView getData(@ModelAttribute SearchBean searchBean) {
 
 
 		List<Car> carList = carService.getAllCar();
 		List<CarMarks> carMarksList = carMarksService.getTopCarMarks();
+		List<CarMarks> notTopCarMarksList = carMarksService.getNotTopMarks();
 
 		ModelAndView model = new ModelAndView("index");
 
 		model.addObject("carMarksList", carMarksList);
 		model.addObject("carList", carList);
+		model.addObject("notTopCarMarksList", notTopCarMarksList);
 		model.addObject("newCar", new Car());
 
 		return model;
@@ -65,6 +58,17 @@ public class MainController {
 
 		List<String> vehicleType = new ArrayList<String>();
 		List<String> bodyType = new ArrayList<String>();
+		List<String> transmissionTypes = new ArrayList<String>();
+		List<String> typeOfDrive = new ArrayList<String>();
+		List<Integer> carYears = new ArrayList<Integer>();
+		List<CarMarks> carMarksList = carMarksService.getTopCarMarks();
+		List<Region> regionList = regionService.getListRegions();
+
+		Integer year = Calendar.getInstance().get(Calendar.YEAR);
+		for (int i = 1950; i<=year; i++){
+			carYears.add(i);
+		}
+
 
 		vehicleType.add("Мототехника");
 		vehicleType.add("Легковой");
@@ -76,8 +80,22 @@ public class MainController {
 		bodyType.add("Универсал");
 		bodyType.add("Купе");
 
+		transmissionTypes.add("Механическая");
+		transmissionTypes.add("Роботизированная");
+		transmissionTypes.add("Автоматическая");
+		transmissionTypes.add("Вариатор");
+
+		typeOfDrive.add("Передний");
+		typeOfDrive.add("Задний");
+		typeOfDrive.add("Полный");
+
 		model.addObject("vehicleType", vehicleType);
 		model.addObject("bodyType", bodyType);
+		model.addObject("carYears", carYears);
+		model.addObject("transmissionTypes", transmissionTypes);
+		model.addObject("carMarksList", carMarksList);
+		model.addObject("typeOfDrive", typeOfDrive);
+		model.addObject("regionList", regionList);
 		return model;
 	}
 
@@ -176,20 +194,48 @@ public class MainController {
 		return mav;
 	}
 	@RequestMapping("/usedByMarkModel")
-	public ModelAndView showUsedCarByParam(@RequestParam String mark,
+	public @ResponseBody List<Car> showUsedCarByParam(@RequestParam String mark,
 										   @RequestParam String model){
 
 		List<Car> carList = carService.getCarsByMarkModel(mark, model);
 		List<CarMarks> carMarksList = carMarksService.getTopCarMarks();
 		ModelAndView mav = new ModelAndView("usedList");
-
+//		request.getSession().setAttribute("mark",mark);
+//		request.getSession().setAttribute("model",model);
 		mav.addObject("carMarksList", carMarksList);
 		mav.addObject("carList", carList);
 
-		return mav;
+		return carList;
 
 	}
 
+//	@RequestMapping("/usedBySearchBean")
+//	public @ResponseBody ModelAndView usedBySearchBean(@ModelAttribute SearchBean searchBean){
+//		List<Car> carList = carService.carListByParameters(searchBean);
+//		List<CarMarks> carMarksList = carMarksService.getTopCarMarks();
+//
+//		ModelAndView mav = new ModelAndView("usedList");
+////		ModelAndView mav = new ModelAndView("TestJson");
+//
+//		mav.addObject("carMarksList", carMarksList);
+//		mav.addObject("carList", carList);
+//
+//		return mav;
+//	}
+
+	@RequestMapping("/usedBySearchBean")
+	public @ResponseBody List<Car> usedBySearchBean(@ModelAttribute SearchBean searchBean){
+		List<Car> carList = carService.carListByParameters(searchBean);
+//		List<CarMarks> carMarksList = carMarksService.getTopCarMarks();
+//
+//		ModelAndView mav = new ModelAndView("usedList");
+////		ModelAndView mav = new ModelAndView("TestJson");
+//
+//		mav.addObject("carMarksList", carMarksList);
+//		mav.addObject("carList", carList);
+
+		return carList;
+	}
 
 	@RequestMapping("/dropdown")
 	public ModelAndView loadMarks(){
@@ -217,6 +263,17 @@ public class MainController {
 
 	}
 
+	@RequestMapping("/loadRegions")
+	public @ResponseBody List<Region> loadRegions(String region){
+		return regionService.getListRegions();
+	}
+
+
+	@RequestMapping("/loadCity")
+	public @ResponseBody List<City> loadCity(@RequestParam(value = "id", required = true) int id){
+		return cityService.getCityList(id);
+	}
+
 	@RequestMapping(value = "/loadModels1", method = RequestMethod.GET)
 	public @ResponseBody
 	ModelAndView loadModelsByMark(@RequestParam(value = "mark", required = true) String mark){
@@ -230,23 +287,6 @@ public class MainController {
 
 	}
 
-	@RequestMapping("/uploadPage")
-	public ModelAndView uploadPage(){
-		ModelAndView mav = new ModelAndView("uploadPAge");
-		return mav;
-	}
-
-	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public String handleFormUpload(
-			@RequestParam("file") MultipartFile file) throws IOException {
-		if (!file.isEmpty()) {
-			BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
-			File destination = new File("/home/andrew/testUpload/" + "123.png"); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
-			ImageIO.write(src, "png", destination);
-			//Save the id you have used to create the file name in the DB. You can retrieve the image in future with the ID.
-			return "redirect:/getList";
-		}return "redirect:/getList";
-	}
 
 	@RequestMapping(value = "/loginform")
 	public ModelAndView login(@ModelAttribute User user){
@@ -268,4 +308,8 @@ public class MainController {
 		}
 		return page;
 	}
+
+
+
+
 }

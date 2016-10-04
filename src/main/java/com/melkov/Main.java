@@ -7,11 +7,12 @@ public class Main {
 
     public static void main(String[] args) {
         int i = 1;
+        String s = "";
 
-        if (i>0){
-            System.out.println("i");
+        if (s.equals("")){
+            System.out.println(s);
     }else {
-            System.out.println("nothing");
+            System.out.println("not null");
         }
 
     }

@@ -1,30 +1,37 @@
 /**
- * Created by andrew on 06.09.16
+ * Created by andrew on 28.09.16.
  */
 $(document).ready(
-    function() {
 
-        $('#first-choice').change(
+    function() {
+        
+        $('#region').change(
             function() {
 
-                $.getJSON('loadModels', {
-                    mark : $(this).val(),
+                $.getJSON('loadCity', {
+                    id : $(this).val(),
                     ajax : 'true'
                 }, function(data) {
-                    
+
                     var html = '<option selected value="NULL">All</option>';
                     var len = data.length;
 
                     for ( var i = 0; i < len; i++) {
-                        html += '<option value="' + data[i].modelName + '">' + data[i].modelName + '</option>';
+                        html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
 
                     }
                     html += '</option>';
 
-                    $('#second-choice').html(html);
+                    $('#city').html(html);
                 });
             });
+        
 
-    });
+});
+
+    
+    
 
 
+
+    

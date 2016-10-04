@@ -5,9 +5,9 @@ package com.melkov.domain;
  */
 public class SearchBean {
 
-    private String vehicleTyp;
-    private  String bodyTyp;
-    private  String mar;
+    private String vehicleType;
+    private  String bodyType;
+    private  String mark;
     private   String model;
     private   double fromEngineValue;
     private   double toEngineValue;
@@ -27,9 +27,9 @@ public class SearchBean {
 
 
     public SearchBean(String vehicleTyp, String bodyTyp, String mar, String model, double fromEngineValue, double toEngineValue, double fromConsumption, double toConsumption, int fromCarYear, int toCarYear, int fromCarPrice, int toCarPrice, String transmissionType, String typeOfDrive, int fromMileage, int toMileage, String city, String colour, String description) {
-        this.vehicleTyp = vehicleTyp;
-        this.bodyTyp = bodyTyp;
-        this.mar = mar;
+        this.vehicleType = vehicleTyp;
+        this.bodyType = bodyTyp;
+        this.mark = mar;
         this.model = model;
         this.fromEngineValue = fromEngineValue;
         this.toEngineValue = toEngineValue;
@@ -48,31 +48,33 @@ public class SearchBean {
         this.description = description;
     }
 
+
+
     public SearchBean() {
     }
 
-    public String getVehicleTyp() {
-        return vehicleTyp;
+    public String getVehicleType() {
+        return vehicleType;
     }
 
-    public void setVehicleTyp(String vehicleTyp) {
-        this.vehicleTyp = vehicleTyp;
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
     }
 
-    public String getBodyTyp() {
-        return bodyTyp;
+    public String getBodyType() {
+        return bodyType;
     }
 
-    public void setBodyTyp(String bodyTyp) {
-        this.bodyTyp = bodyTyp;
+    public void setBodyType(String bodyType) {
+        this.bodyType = bodyType;
     }
 
-    public String getMar() {
-        return mar;
+    public String getMark() {
+        return mark;
     }
 
-    public void setMar(String mar) {
-        this.mar = mar;
+    public void setMark(String mar) {
+        this.mark = mar;
     }
 
     public String getModel() {

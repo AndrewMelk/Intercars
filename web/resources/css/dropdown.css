@@ -58,3 +58,6 @@ body {
 .select select:disabled ~ .select__arrow {
     border-top-color: #ccc;
 }
+
+/*Stylish*/
+

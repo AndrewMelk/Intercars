@@ -28,8 +28,65 @@ public class Car {
     private String colour;
     private String description;
 
+    private String title;
+    private String modeification;
+    private String vin;
 
+    private String username;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getModeification() {
+        return modeification;
+    }
+
+    public void setModeification(String modeification) {
+        this.modeification = modeification;
+    }
+
+    public String getVin() {
+        return vin;
+    }
+
+    public void setVin(String vin) {
+        this.vin = vin;
+    }
+
+    public Car(long id, String vehicleType, String bodyType, String mark, String model, double engineValue, double consumption, int carYear, int carPrice, String transmissionType, String typeOfDrive, int mileage, String city, String colour, String description, String title, String modeification, String vin) {
+
+        this.id = id;
+        this.vehicleType = vehicleType;
+        this.bodyType = bodyType;
+        this.mark = mark;
+        this.model = model;
+        this.engineValue = engineValue;
+        this.consumption = consumption;
+        this.carYear = carYear;
+        this.carPrice = carPrice;
+        this.transmissionType = transmissionType;
+        this.typeOfDrive = typeOfDrive;
+        this.mileage = mileage;
+        this.city = city;
+        this.colour = colour;
+        this.description = description;
+        this.title = title;
+        this.modeification = modeification;
+        this.vin = vin;
+    }
 
     public Car() {
     }

@@ -2,6 +2,7 @@ package com.melkov.dao.impl;
 
 import com.melkov.dao.CarDao;
 import com.melkov.domain.Car;
+import com.melkov.domain.SearchBean;
 import com.melkov.jdbc.mappers.CarRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,14 +45,19 @@ public class CarDaoImpl implements CarDao {
 
     public void addCar(Car car) {
         String sql = "INSERT INTO car "
-                + "(mark, model, engine_value, consumption) VALUES (?, ?, ?,?)";
+                + "(mark, model, engine_value, consumption, vehicle_type, bodyType, carYear" +
+                ", carPrice, transmissionType, typeOfDrive, mileage, city, colour, description, title" +
+                ", modification, vin) VALUES (?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?,?)";
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
         jdbcTemplate.update(
                 sql,
                 new Object[] { car.getMark(), car.getModel(),
-                        car.getEngineValue(), car.getConsumption() });
+                        car.getEngineValue(), car.getConsumption(), car.getVehicleType(),
+                        car.getBodyType(), car.getCarYear(), car.getCarPrice(), car.getTransmissionType(),
+                        car.getTypeOfDrive(), car.getMileage(), car.getCity(), car.getColour(),
+                        car.getDescription(),car.getTitle(), car.getModeification(), car.getVin()});
         log.log(Level.SEVERE,"in addCar");
     }
 
@@ -181,5 +187,29 @@ public class CarDaoImpl implements CarDao {
                         car.getEngineValue(), car.getConsumption(), car.getId() });
     }
 
+    public List<Car> carListByParameters(SearchBean searchBean){
+
+        List<Car> carList = new ArrayList<Car>();
+        StringBuilder sql = new StringBuilder();
+        String sqlNew = "SELECT * FROM car ";
+        sql.append("SELECT * FROM car WHERE ");
+
+        if (!searchBean.getMark().equals("All")){
+            sql.append("mark = " + "'" + searchBean.getMark() + "'" + " ");
+        }
+
+        if (!searchBean.getModel().equals("NULL")){
+            sql.append("AND model = " + "'" + searchBean.getModel() + "'");
+        }
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        if(sql.toString().equals("SELECT * FROM car WHERE ")){
+            carList = jdbcTemplate.query(sqlNew, new CarRowMapper());
+        }else {
+
+            carList = jdbcTemplate.query(sql.toString(), new CarRowMapper());
+        }
+        return carList;
+    }
 
 }

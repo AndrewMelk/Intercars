@@ -3,7 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- telling container to take care of annotations stuff -->
     <context:annotation-config />
@@ -21,7 +22,6 @@
     </bean>
 
 
-
     <!-- declare beans -->
     <bean id="carDao" class="com.melkov.dao.impl.CarDaoImpl" />
     <bean id="carService" class="com.melkov.services.impl.CarServiceImpl" />
@@ -31,12 +31,17 @@
     <bean id="carModelsService" class="com.melkov.services.impl.CarModelsServiceImpl"/>
     <bean id="userDao" class="com.melkov.dao.impl.UserDaoImpl"/>
     <bean id="userService" class="com.melkov.services.impl.UserServiceImpl"/>
+    <bean id="cityDao" class="com.melkov.dao.impl.CityDaoImpl"/>
+    <bean id="cityService" class="com.melkov.services.impl.CityServiceImpl"/>
+    <bean id="regionDao" class="com.melkov.dao.impl.RegionDaoImpl"/>
+    <bean id="regionService" class="com.melkov.services.impl.RegionServiceImpl"/>
+
 
     <!-- declare datasource bean -->
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/car" />
+        <property name="url" value="jdbc:mysql://localhost:3306/car?autoReconnect=true&amp;useSSL=false" />
         <property name="username" value="root" />
         <property name="password" value="P@ssw0rd" />
     </bean>
@@ -44,11 +49,12 @@
     <bean id="dataSourceCar"
             class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/cars"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/cars?autoReconnect=true&amp;useSSL=false"/>
         <property name="username" value="root"/>
         <property name="password" value="P@ssw0rd"/>
     </bean>
 
+    <aop:config proxy-target-class="true"/>
     <mvc:resources mapping="/resources/**" location="/resources/" />
     <mvc:annotation-driven />
 

@@ -21,27 +21,8 @@
 </head>
 
 <body>
-<div class="fixed-header">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">InterCars</a>
-        </div>
-        <nav class="main-menu">
-            <ul>
-                <li><a href="#home">Б/у Авто</a></li>
-                <li><a href="#services">Новые Авто</a></li>
-                <li><a href="#clients">Новости</a></li>
-                <li><a class="external" href="https://www.facebook.com/templatemo" target="_blank">External</a></li>
-                <li><a href="#contact">Контакты</a></li>
-            </ul>
-        </nav>
-    </div>
-</div>
+<%@ include file="../jspf/header.jspf"%>
+
 
 <div class="container">
     <section class="col-md-12 content" id="home">

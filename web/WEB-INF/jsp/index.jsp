@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" session="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -10,7 +10,13 @@
   <spring:url value="/resources/css/templatemo-style.css" var="templatmo"/>
   <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <%--<script src="/resources/js/cookie_search.js"></script>--%>
   <script src="/resources/js/select_mark.js"></script>
+  <script src="/resources/js/jquery.cookie.js"></script>
+  <script src="/resources/js/car_list.js"></script>
+  <script src="/resources/js/jquery.leanModal.min.js"></script>
+
+
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +27,13 @@
 <script type="text/javascript">
 
 </script>
+    <script>
+      $(document).ready(function(){
+        $(".slide.left.default").click(function(){
+          $("#default_div").toggle(1000);
+        });
+      });
+      </script>
 
 
 
@@ -28,73 +41,51 @@
 </head>
 
 <body>
-<div class="fixed-header">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">InterCars</a>
+
+
+
+<%@ include file="../jspf/header.jspf"%>
+
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="loginmodal-container">
+      <h1>Login to Your Account</h1><br>
+      <form>
+        <input type="text" name="user" placeholder="Username">
+        <input type="password" name="pass" placeholder="Password">
+        <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+      </form>
+
+      <div class="login-help">
+        <a href="#">Register</a> - <a href="#">Forgot Password</a>
+      </div>
     </div>
-    <nav class="main-menu">
-      <ul>
-        <li><a href="#home">Б/у Авто</a></li>
-        <li><a href="#services">Новые Авто</a></li>
-        <li><a href="#clients">Новости</a></li>
-        <li><a class="external" href="https://www.facebook.com/templatemo" target="_blank">External</a></li>
-        <li><a href="#contact">Контакты</a></li>
-      </ul>
-    </nav>
   </div>
 </div>
 
-<div class="sidebar">
-  <%--<p>Топ</p>--%>
-  <%--<c:forEach var="carMarksTop" items="${carMarksList}">--%>
-  <%--<button class="button button2"><a href="used?mark=${carMarksTop.carMark}">${carMarksTop.carMark}</a></button>--%>
-  <%--</c:forEach>--%>
-  <form action="/usedByMarkModel">
-    <div class="select">
-      <select id="first-choice" name="mark">
-        <option selected value="base">Please Select Mark</option>
-        <c:forEach var="carMarksTop" items="${carMarksList}">
-          <option value="${carMarksTop.carMark}">${carMarksTop.carMark}</option>
-        </c:forEach>
-      </select>
-    </div>
+<%@ include file="../jspf/sidebar.jspf"%>
 
-    <div class="select">
-      <select id="second-choice" name="model">
+<div class="container" id="cars-container">
+  <%--<section class="col-md-12 content" id="home">--%>
+    <%--&lt;%&ndash;<c:forEach var="car" items="${carList}">&ndash;%&gt;--%>
+    <%--<div class="col-lg-6 col-md-6 content-item">--%>
+      <%--<img src="resources/images/1.jpg" alt="Image" class="tm-image">--%>
+    <%--</div>--%>
 
-      </select>
-    </div>
-    <p><input type="submit"></p>
-    </form>
-</div>
+    <%--<div class="col-lg-6 col-md-6 content-item content-item-1 background">--%>
 
-<div class="container">
-  <section class="col-md-12 content" id="home">
-    <c:forEach var="car" items="${carList}">
-    <div class="col-lg-6 col-md-6 content-item">
-      <img src="resources/images/1.jpg" alt="Image" class="tm-image">
-    </div>
+      <%--&lt;%&ndash;<a href="show_details?id=${car.id}"><h2 class="main-title text-center dark-blue-text">${car.mark} ${car.model}</h2></a>&ndash;%&gt;--%>
+      <%--&lt;%&ndash;<h1 id="price">$ ${car.carPrice}</h1>&ndash;%&gt;--%>
+      <%--&lt;%&ndash;<p>Объем двигателя: ${car.engineValue}</p>&ndash;%&gt;--%>
+      <%--&lt;%&ndash;<p>Расход Топлива: ${car.consumption}</p>&ndash;%&gt;--%>
+      <%--&lt;%&ndash;<p>Пробег: ${car.mileage}</p>&ndash;%&gt;--%>
+      <%--&lt;%&ndash;<p id="description">${car.description}</p>&ndash;%&gt;--%>
 
-    <div class="col-lg-6 col-md-6 content-item content-item-1 background">
-
-      <a href="show_details?id=${car.id}"><h2 class="main-title text-center dark-blue-text">${car.mark} ${car.model}</h2></a>
-      <h1 id="price">$ ${car.carPrice}</h1>
-      <p>Объем двигателя: ${car.engineValue}</p>
-      <p>Расход Топлива: ${car.consumption}</p>
-      <p>Пробег: ${car.mileage}</p>
-      <p id="description">${car.description}</p>
-
-      <button type="button" class="btn btn-big dark-blue-bordered-btn"><a href="edit?id=${car.id}">Edit</a></button>
-      <button type="button" class="btn btn-big dark-blue-btn"><a href="delete?id=${car.id}">Delete</a></button>
-    </div>
-  </c:forEach>
-  </section>
+      <%--<button type="button" class="btn btn-big dark-blue-bordered-btn"><a href="edit?id=${car.id}">Edit</a></button>--%>
+      <%--<button type="button" class="btn btn-big dark-blue-btn"><a href="delete?id=${car.id}">Delete</a></button>--%>
+    <%--</div>--%>
+  <%--&lt;%&ndash;</c:forEach>&ndash;%&gt;--%>
+  <%--</section>--%>
 
 
 
@@ -112,11 +103,11 @@
 </div>
 
 <div class="text-center footer">
-  <div class="container">
-    Copyright @ 2084 Company Name
+  <%--<div class="container">--%>
+    <%--Copyright @ 2084 Company Name--%>
 
-    | Design: <a href="http://www.templatemo.com/tm-477-puzzle" target="_parent" title="Puzzle Template">Puzzle</a>
-  </div>
+    <%--| Design: <a href="http://www.templatemo.com/tm-477-puzzle" target="_parent" title="Puzzle Template">Puzzle</a>--%>
+  <%--</div>--%>
 </div>
 
 <a href="/add_car">add car</a>

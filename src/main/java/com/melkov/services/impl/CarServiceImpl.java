@@ -2,6 +2,7 @@ package com.melkov.services.impl;
 
 import com.melkov.dao.CarDao;
 import com.melkov.domain.Car;
+import com.melkov.domain.SearchBean;
 import com.melkov.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,5 +75,9 @@ public class CarServiceImpl implements CarService {
         carDao.updateData(car);
     }
 
+    public List<Car> carListByParameters(SearchBean searchBean){
+        return carDao.carListByParameters(searchBean);
+    }
 
-}
+
+    }

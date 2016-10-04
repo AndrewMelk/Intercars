@@ -1,6 +1,7 @@
 package com.melkov.services;
 
 import com.melkov.domain.Car;
+import com.melkov.domain.SearchBean;
 
 import java.util.List;
 
@@ -42,6 +43,6 @@ public interface CarService {
                                     String description);
 
     public List<Car> getCarsByMarkModel(String mark, String model);
+    public List<Car> carListByParameters(SearchBean searchBean);
 
-
-}
+    }

@@ -1,0 +1,48 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+
+<div class="sidebar">
+    <form:form action="/usedBySearchBean" modelAttribute="searchBean" method="get">
+    <%--<button id="toggle_default_div">Open default search</button>--%>
+    <%--<button class="slide left default">&nbsp;</button>--%>
+        <div class="select">
+            <form:select id="first-choice" name="mark" path="mark">
+                <option selected value="All">Mark</option>
+                <c:forEach var="carMarksTop" items="${carMarksList}">
+                    <option value="${carMarksTop.carMark}">${carMarksTop.carMark}</option>
+                </c:forEach>
+                <%--<option disabled>----------</option>--%>
+                <%--<c:forEach var="carMarksTop" items="${carMarksList}">--%>
+                <%--<option value="${carMarksTop.carMark}">${carMarksTop.carMark}</option>--%>
+                <%--</c:forEach>--%>
+            </form:select>
+        </div>
+
+        <div class="select">
+            <form:select id="second-choice" name="model" path="model">
+                <option selected value="NULL">Model</option>
+            </form:select>
+
+        </div>
+
+        <h3 class="slide left default">&nbsp;</h3>
+
+
+
+
+
+        <%--<div id="toggle_default_div">--%>
+        <%--style="cursor: pointer">Open default search</>--%>
+        <%--</div>--%>
+
+        <div id="default_div" style="display: none;">
+            <select></select>
+            <select></select>
+            <select></select>
+            <select></select>
+
+        </div>
+
+            <form:button class="slide left submit">&nbsp;</form:button>
+    </form:form>
+</div>
