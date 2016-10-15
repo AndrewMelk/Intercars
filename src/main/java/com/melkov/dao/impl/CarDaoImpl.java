@@ -45,15 +45,15 @@ public class CarDaoImpl implements CarDao {
 
     public void addCar(Car car) {
         String sql = "INSERT INTO car "
-                + "(mark, model, engine_value, consumption, vehicle_type, bodyType, carYear" +
+                + "(user_name, mark, model, engine_value, consumption, vehicle_type, bodyType, carYear" +
                 ", carPrice, transmissionType, typeOfDrive, mileage, city, colour, description, title" +
-                ", modification, vin) VALUES (?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?,?)";
+                ", modification, vin) VALUES (?,?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?,?)";
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
         jdbcTemplate.update(
                 sql,
-                new Object[] { car.getMark(), car.getModel(),
+                new Object[] {car.getUsername(), car.getMark(), car.getModel(),
                         car.getEngineValue(), car.getConsumption(), car.getVehicleType(),
                         car.getBodyType(), car.getCarYear(), car.getCarPrice(), car.getTransmissionType(),
                         car.getTypeOfDrive(), car.getMileage(), car.getCity(), car.getColour(),

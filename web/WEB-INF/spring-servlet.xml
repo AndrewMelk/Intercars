@@ -6,13 +6,27 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+        <!--<property name="maxUploadSize" value="20848820" />-->
+    <!--</bean>-->
     <!-- telling container to take care of annotations stuff -->
     <context:annotation-config />
 
     <!-- declaring base package -->
     <context:component-scan base-package="com.melkov.controllers" />
 
+    <!-- define multi-part bean to define handle file upload -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+        <property name="maxUploadSize" value="100000000"/>
+    </bean>
 
+
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages" />
+    </bean>
 
     <!-- adding view resolver to show jsp's on browser -->
     <bean id="viewResolver"
@@ -56,6 +70,7 @@
 
     <aop:config proxy-target-class="true"/>
     <mvc:resources mapping="/resources/**" location="/resources/" />
+
     <mvc:annotation-driven />
 
 </beans>
