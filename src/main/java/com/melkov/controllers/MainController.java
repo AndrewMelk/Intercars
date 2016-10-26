@@ -2,18 +2,14 @@ package com.melkov.controllers;
 
 import com.melkov.domain.*;
 import com.melkov.services.*;
-import com.melkov.utils.ImageResize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,11 +18,9 @@ import java.util.logging.Logger;
 @SessionAttributes({"mark","model"})
 @RequestMapping(value = "/")
 public class MainController {
-
 	Logger logger = Logger.getLogger(getClass().toString());
 
-	@Autowired
-	UserService userService;
+
 	@Autowired
 	CarService carService;
 	@Autowired
@@ -38,6 +32,10 @@ public class MainController {
 	@Autowired
 	RegionService regionService;
 
+	@RequestMapping("/")
+	public String redirect(){
+		return "redirect:/getList";
+	}
 
 
 	@RequestMapping(value = "/getList", method = RequestMethod.GET)
@@ -108,23 +106,32 @@ public class MainController {
 
 
 	@RequestMapping("/insert")
-	public String inserData(@ModelAttribute Car car, HttpServletRequest request) {
+	public String inserData(@ModelAttribute Car car, HttpServletRequest request, ModelAndView mav) {
 		if (car != null) {
 			car.setUsername(request.getParameter(""));
 			carService.addCar(car);
+			mav.addObject("carId", car.getId());
 		}else {
-			return "redirect:/getList";
-
+//			return "redirect:/getList";
+			return "redirect:/insertImg";
 		}
-
-		return "redirect:/getList";
+		return "redirect:/insertImg";
 	}
 
+
+
 	@RequestMapping("/delete")
-	public String deleteCar(@RequestParam String id){
+	public String deleteCar(@RequestParam String id, HttpServletRequest request){
 		System.out.println("id= " + id);
 		carService.removeCar(id);
+		String rootPath = request.getSession().getServletContext().getRealPath("/resources/img");
+		File file = new File(rootPath + File.separator + "tmpFiles1" + File.separator + "11.jpg");
+		if (file.delete()){
+			logger.log(Level.SEVERE, "deleted file: " + file);
+		}else {
+			logger.log(Level.SEVERE, "file don't deleted " + file);
 
+		}
 		return "redirect:/getList";
 	}
 
@@ -133,13 +140,10 @@ public class MainController {
 								@ModelAttribute Car car){
 
 		car = carService.getCarById(id);
-
 		Map<String,Object> map = new HashMap<String, Object>();
-
 		map.put("car",car);
 
 		return new ModelAndView("edit","map",map);
-
 	}
 
 	@RequestMapping("/update")
@@ -217,31 +221,11 @@ public class MainController {
 
 	}
 
-//	@RequestMapping("/usedBySearchBean")
-//	public @ResponseBody ModelAndView usedBySearchBean(@ModelAttribute SearchBean searchBean){
-//		List<Car> carList = carService.carListByParameters(searchBean);
-//		List<CarMarks> carMarksList = carMarksService.getTopCarMarks();
-//
-//		ModelAndView mav = new ModelAndView("usedList");
-////		ModelAndView mav = new ModelAndView("TestJson");
-//
-//		mav.addObject("carMarksList", carMarksList);
-//		mav.addObject("carList", carList);
-//
-//		return mav;
-//	}
 
-	@RequestMapping("/usedBySearchBean")
+	@RequestMapping(value = "/usedBySearchBean", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public @ResponseBody List<Car> usedBySearchBean(@ModelAttribute SearchBean searchBean){
 		List<Car> carList = carService.carListByParameters(searchBean);
-//		List<CarMarks> carMarksList = carMarksService.getTopCarMarks();
-//
-//		ModelAndView mav = new ModelAndView("usedList");
-////		ModelAndView mav = new ModelAndView("TestJson");
-//
-//		mav.addObject("carMarksList", carMarksList);
-//		mav.addObject("carList", carList);
-
+		logger.log(Level.SEVERE, carList.toString());
 		return carList;
 	}
 
@@ -249,9 +233,7 @@ public class MainController {
 	public ModelAndView loadMarks(){
 
 		List<CarMarks> carMarksList = carMarksService.getTopCarMarks();
-
 		ModelAndView model = new ModelAndView("dropdown");
-
 		model.addObject("carMarksList", carMarksList);
 
 
@@ -261,11 +243,6 @@ public class MainController {
 	@RequestMapping(value = "/loadModels", method = RequestMethod.GET)
 	public @ResponseBody
 	List<CarModels> loadModels(@RequestParam(value = "mark", required = true) String mark){
-//		ModelAndView model = new ModelAndView();
-//		List<CarModels> carModelsList = new ArrayList<CarModels>();
-//		carModelsList = carModelsService.getModelsByMark(mark);
-
-//		model.addObject("carModelsList",carModelsList);
 
 		return carModelsService.getModelsByMark(mark);
 
@@ -282,172 +259,15 @@ public class MainController {
 		return cityService.getCityList(id);
 	}
 
-	@RequestMapping(value = "/loadModels1", method = RequestMethod.GET)
-	public @ResponseBody
-	ModelAndView loadModelsByMark(@RequestParam(value = "mark", required = true) String mark){
-		ModelAndView model = new ModelAndView("models");
-		List<CarModels> carModelsList = new ArrayList<CarModels>();
-		carModelsList = carModelsService.getModelsByMark(mark);
-
-		model.addObject("carModelsList",carModelsList);
-
-		return model;
-
-	}
 
 
-	@RequestMapping(value = "/loginform")
-	public ModelAndView login(@ModelAttribute User user){
-		logger.log(Level.SEVERE, "in /login");
-		return new ModelAndView("login");
-
-	}
-
-	@RequestMapping(value = "/loginUser",method = RequestMethod.POST)
-	public String loginUser(@ModelAttribute User user){
-		logger.log(Level.SEVERE,"in loginUser action");
-		String page;
-		if (userService.validUser(user)){
-
-			page = "redirect:/getList";
-		}else {
-			page = "redirect:/loginform";
-
-		}
-		return page;
-	}
-
-	@RequestMapping(value ="/Test")
-	public String test(@ModelAttribute Product product) throws IOException {
-
-			final String inputImagePath = "/home/andrew/intercars/BMW_320_3/bmw_1.jpg";
-			final String outputImagePath1 = "/home/andrew/intercars/BMW_320_3/bmw_Fixed.jpg";
-			final String outputImagePath2 = "/home/andrew/intercars/BMW_320_3/bmw_Smaller_png.png";
-			final String outputImagePath3 = "/home/andrew/intercars/BMW_320_3/bmw_Bigger_png.png";
 
 
-			Thread thread = new Thread(new Runnable() {
-				public void run() {
-					try {
-						// resize to a fixed width (not proportional)
-						int scaledWidth = 1024;
-						int scaledHeight = 768;
-						ImageResize.resize(inputImagePath, outputImagePath1, scaledWidth, scaledHeight);
-
-						// resize smaller by 50%
-						double percent = 0.5;
-						ImageResize.resize(inputImagePath, outputImagePath2, percent);
-
-						// resize bigger by 50%
-						percent = 1.5;
-						ImageResize.resize(inputImagePath, outputImagePath3, percent);
-
-					} catch (IOException ex) {
-						System.out.println("Error resizing the image.");
-						ex.printStackTrace();
-					}
-				}
-			});
-
-			thread.start();
 
 
-		return "redirect:/getImages";
-	}
 
 
-	@RequestMapping("/upload")
-	public String uploadView(){
-		return "upload";
-	}
 
-	@RequestMapping("/multipleUpload")
-	public String uploadMultipleView(){
-		return "uploadMultiple";
-	}
-
-	/**
-	 * Upload single file using Spring Controller
-	 */
-	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-	public @ResponseBody
-	String uploadFileHandler(HttpServletRequest request ,@RequestParam("name") String name,
-							 @RequestParam("file") MultipartFile file) {
-
-		if (!file.isEmpty()) {
-			try {
-				byte[] bytes = file.getBytes();
-
-				// Creating the directory to store file
-//				String rootPath = System.getProperty("/home/andrew/intercars");
-				String rootPath = request.getSession().getServletContext().getRealPath("/resources/img");
-				File dir = new File(rootPath + File.separator + "tmpFiles");
-				if (!dir.exists())
-					dir.mkdirs();
-
-				// Create the file on server
-				File serverFile = new File(dir.getAbsolutePath()
-						+ File.separator + name);
-				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(serverFile));
-				stream.write(bytes);
-				stream.close();
-
-				logger.info("Server File Location="
-						+ serverFile.getAbsolutePath());
-
-				return "You successfully uploaded file=" + name;
-			} catch (Exception e) {
-				return "You failed to upload " + name + " => " + e.getMessage();
-			}
-		} else {
-			return "You failed to upload " + name
-					+ " because the file was empty.";
-		}
-	}
-
-	/**
-	 * Upload multiple file using Spring Controller
-	 */
-	@RequestMapping(value = "/uploadMultipleFile", method = RequestMethod.POST)
-	public @ResponseBody
-	String uploadMultipleFileHandler(@RequestParam("name") String[] names,
-									 @RequestParam("file") MultipartFile[] files) {
-
-		if (files.length != names.length)
-			return "Mandatory information missing";
-
-		String message = "";
-		for (int i = 0; i < files.length; i++) {
-			MultipartFile file = files[i];
-			String name = names[i];
-			try {
-				byte[] bytes = file.getBytes();
-
-				// Creating the directory to store file
-				String rootPath = System.getProperty("catalina.home");
-				File dir = new File(rootPath + File.separator + "tmpFiles");
-				if (!dir.exists())
-					dir.mkdirs();
-
-				// Create the file on server
-				File serverFile = new File(dir.getAbsolutePath()
-						+ File.separator + name);
-				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(serverFile));
-				stream.write(bytes);
-				stream.close();
-
-				logger.info("Server File Location="
-						+ serverFile.getAbsolutePath());
-
-				message = message + "You successfully uploaded file=" + name + " ";
-			} catch (Exception e) {
-				return "You failed to upload " + name + " => " + e.getMessage();
-			}
-		}
-		return message;
-	}
 
 
 

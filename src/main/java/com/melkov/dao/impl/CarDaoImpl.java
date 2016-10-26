@@ -53,7 +53,7 @@ public class CarDaoImpl implements CarDao {
 
         jdbcTemplate.update(
                 sql,
-                new Object[] {car.getUsername(), car.getMark(), car.getModel(),
+                new Object[] {"Andrew", car.getMark(), car.getModel(),
                         car.getEngineValue(), car.getConsumption(), car.getVehicleType(),
                         car.getBodyType(), car.getCarYear(), car.getCarPrice(), car.getTransmissionType(),
                         car.getTypeOfDrive(), car.getMileage(), car.getCity(), car.getColour(),
@@ -198,7 +198,7 @@ public class CarDaoImpl implements CarDao {
             sql.append("mark = " + "'" + searchBean.getMark() + "'" + " ");
         }
 
-        if (!searchBean.getModel().equals("NULL")){
+        if (!searchBean.getModel().equals("null")){
             sql.append("AND model = " + "'" + searchBean.getModel() + "'");
         }
 

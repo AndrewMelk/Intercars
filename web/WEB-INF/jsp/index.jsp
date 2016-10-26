@@ -8,7 +8,7 @@
   <spring:url value="/resources/css/bootstrap.min.css" var="bootCSS" ></spring:url>
   <spring:url value="/resources/css/dropdown.js" var="dropdownJS" ></spring:url>
   <spring:url value="/resources/css/templatemo-style.css" var="templatmo"/>
-  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <%--<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>--%>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <%--<script src="/resources/js/cookie_search.js"></script>--%>
   <script src="/resources/js/select_mark.js"></script>
@@ -66,29 +66,6 @@
 <%@ include file="../jspf/sidebar.jspf"%>
 
 <div class="container" id="cars-container">
-  <%--<section class="col-md-12 content" id="home">--%>
-    <%--&lt;%&ndash;<c:forEach var="car" items="${carList}">&ndash;%&gt;--%>
-    <%--<div class="col-lg-6 col-md-6 content-item">--%>
-      <%--<img src="resources/images/1.jpg" alt="Image" class="tm-image">--%>
-    <%--</div>--%>
-
-    <%--<div class="col-lg-6 col-md-6 content-item content-item-1 background">--%>
-
-      <%--&lt;%&ndash;<a href="show_details?id=${car.id}"><h2 class="main-title text-center dark-blue-text">${car.mark} ${car.model}</h2></a>&ndash;%&gt;--%>
-      <%--&lt;%&ndash;<h1 id="price">$ ${car.carPrice}</h1>&ndash;%&gt;--%>
-      <%--&lt;%&ndash;<p>Объем двигателя: ${car.engineValue}</p>&ndash;%&gt;--%>
-      <%--&lt;%&ndash;<p>Расход Топлива: ${car.consumption}</p>&ndash;%&gt;--%>
-      <%--&lt;%&ndash;<p>Пробег: ${car.mileage}</p>&ndash;%&gt;--%>
-      <%--&lt;%&ndash;<p id="description">${car.description}</p>&ndash;%&gt;--%>
-
-      <%--<button type="button" class="btn btn-big dark-blue-bordered-btn"><a href="edit?id=${car.id}">Edit</a></button>--%>
-      <%--<button type="button" class="btn btn-big dark-blue-btn"><a href="delete?id=${car.id}">Delete</a></button>--%>
-    <%--</div>--%>
-  <%--&lt;%&ndash;</c:forEach>&ndash;%&gt;--%>
-  <%--</section>--%>
-
-
-
 
   <footer class="col-md-12 content" id="externals">
     <div class="col-lg-6 col-md-6 last">
@@ -103,11 +80,7 @@
 </div>
 
 <div class="text-center footer">
-  <%--<div class="container">--%>
-    <%--Copyright @ 2084 Company Name--%>
 
-    <%--| Design: <a href="http://www.templatemo.com/tm-477-puzzle" target="_parent" title="Puzzle Template">Puzzle</a>--%>
-  <%--</div>--%>
 </div>
 
 <a href="/add_car">add car</a>

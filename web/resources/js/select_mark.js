@@ -12,7 +12,7 @@ $(document).ready(
                     ajax : 'true'
                 }, function(data) {
                     
-                    var html = '<option selected value="NULL">All</option>';
+                    var html = '<option selected value="null">All</option>';
                     var len = data.length;
 
                     for ( var i = 0; i < len; i++) {

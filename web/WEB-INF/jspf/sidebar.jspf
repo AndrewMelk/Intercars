@@ -20,7 +20,7 @@
 
         <div class="select">
             <form:select id="second-choice" name="model" path="model">
-                <option selected value="NULL">Model</option>
+                <option selected value="null">Model</option>
             </form:select>
 
         </div>
