@@ -43,14 +43,16 @@
     <bean id="carMarksService" class="com.melkov.services.impl.CarMarksServiceImpl"/>
     <bean id="carModelDao" class="com.melkov.dao.impl.CarModelDaoImpl"/>
     <bean id="carModelsService" class="com.melkov.services.impl.CarModelsServiceImpl"/>
-    <bean id="userDao" class="com.melkov.dao.impl.UserDaoImpl"/>
-    <bean id="userService" class="com.melkov.services.impl.UserServiceImpl"/>
+    <!--<bean id="userDao" class="com.melkov.dao.impl.UserDaoImpl"/>-->
+    <!--<bean id="userService" class="com.melkov.services.impl.UserServiceImpl"/>-->
     <bean id="cityDao" class="com.melkov.dao.impl.CityDaoImpl"/>
     <bean id="cityService" class="com.melkov.services.impl.CityServiceImpl"/>
     <bean id="regionDao" class="com.melkov.dao.impl.RegionDaoImpl"/>
     <bean id="regionService" class="com.melkov.services.impl.RegionServiceImpl"/>
     <bean id="carImageDao" class="com.melkov.dao.impl.CarImageDaoImpl"/>
     <bean id="carImageService" class="com.melkov.services.impl.CarImageServiceImpl"/>
+    <bean id="imagePathDao" class="com.melkov.dao.impl.ImagePathDaoImpl"/>
+    <bean id="imagePathService" class="com.melkov.services.impl.ImagePathServiceImpl"/>
 
     <!-- declare datasource bean -->
     <bean id="dataSource"

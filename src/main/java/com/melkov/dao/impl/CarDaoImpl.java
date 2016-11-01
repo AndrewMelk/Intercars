@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,7 +48,7 @@ public class CarDaoImpl implements CarDao {
         String sql = "INSERT INTO car "
                 + "(user_name, mark, model, engine_value, consumption, vehicle_type, bodyType, carYear" +
                 ", carPrice, transmissionType, typeOfDrive, mileage, city, colour, description, title" +
-                ", modification, vin) VALUES (?,?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?,?)";
+                ", modification, vin, uuid, general_image) VALUES (?,?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?,?,?,?)";
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
@@ -57,9 +58,11 @@ public class CarDaoImpl implements CarDao {
                         car.getEngineValue(), car.getConsumption(), car.getVehicleType(),
                         car.getBodyType(), car.getCarYear(), car.getCarPrice(), car.getTransmissionType(),
                         car.getTypeOfDrive(), car.getMileage(), car.getCity(), car.getColour(),
-                        car.getDescription(),car.getTitle(), car.getModeification(), car.getVin()});
+                        car.getDescription(),car.getTitle(), car.getModeification(), car.getVin(), car.getUuid(), car.getGeneralImage()});
         log.log(Level.SEVERE,"in addCar");
     }
+
+
 
 
     public void removeCar(String id) {
@@ -201,6 +204,27 @@ public class CarDaoImpl implements CarDao {
         if (!searchBean.getModel().equals("null")){
             sql.append("AND model = " + "'" + searchBean.getModel() + "'");
         }
+        if(sql.toString().equals("SELECT * FROM car WHERE ")) {
+
+            if (searchBean.getFromCarYear() != 0) {
+                sql.append("carYear BETWEEN 1950 AND " + searchBean.getToCarYear());
+            } else if (searchBean.getToCarYear() != 0) {
+                sql.append("carYear BETWEEN " + searchBean.getFromCarYear() + "  AND " + Calendar.getInstance().get(Calendar.YEAR));
+            } else {
+                sql.append("carYear BETWEEN 1950 AND " + Calendar.getInstance().get(Calendar.YEAR));
+
+            }
+        }else{
+            if (searchBean.getFromCarYear() != 0) {
+                sql.append("AND carYear BETWEEN 1950 AND " + searchBean.getToCarYear());
+            } else if (searchBean.getToCarYear() != 0) {
+                sql.append("AND carYear BETWEEN " + searchBean.getFromCarYear() + "  AND " + Calendar.getInstance().get(Calendar.YEAR));
+            } else {
+                sql.append("AND carYear BETWEEN 1950 AND " + Calendar.getInstance().get(Calendar.YEAR));
+
+            }
+        }
+
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         if(sql.toString().equals("SELECT * FROM car WHERE ")){

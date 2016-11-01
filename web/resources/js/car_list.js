@@ -10,6 +10,14 @@ $(document).ready(
         $.getJSON('usedBySearchBean', {
             mark : $('#first-choice').val(),
             model : $('#second-choice').val(),
+            fromCarYear : $('#fromYear').val(),
+            toCarYear : $('#toYear').val(),
+            fromCarPrice : $('#fromPrice').val(),
+            toCarPrice : $('#toPrice').val(),
+            fromEngineValue : $('#fromValue').val(),
+            toEngineValue : $('#toValue').val(),
+            bodyType : $('#bodyType').val(),
+            transmissionType : $('#transmissionType').val(),
             ajax : 'true'
         }, function(data) {
 
@@ -19,7 +27,7 @@ $(document).ready(
 
                 html +='<section class="col-md-12 content" id="home">'
                 html +='<div class="col-lg-6 col-md-6 content-item">'
-                html +='<img src="resources/images/1.jpg" alt="Image" class="tm-image">'
+                html +='<img src="' + data[i].generalImage +'" alt="Image111" class="tm-image">'
                 html +='</div>'
                 html +='<div class="col-lg-6 col-md-6 content-item content-item-1 background">'
                 html +='<a href="show_details?id=' + data[i].id + '"><h2 class="main-title text-center dark-blue-text">' + data[i].mark + " " + data[i].model  +'</h2></a>';
@@ -49,6 +57,14 @@ $(document).ready(
                 $.getJSON('usedBySearchBean', {
                     mark : $('#first-choice').val(),
                     model : $('#second-choice').val(),
+                    fromCarYear : $('#fromYear').val(),
+                    toCarYear : $('#toYear').val(),
+                    fromCarPrice : $('#fromPrice').val(),
+                    toCarPrice : $('#toPrice').val(),
+                    fromEngineValue : $('#fromValue').val(),
+                    toEngineValue : $('#toValue').val(),
+                    bodyType : $('#bodyType').val(),
+                    transmissionType : $('#transmissionType').val(),
                     ajax : 'true'
                 }, function(data) {
 
@@ -58,7 +74,7 @@ $(document).ready(
                     for ( var i = 0; i < len; i++) {
                         html +='<section class="col-md-12 content" id="home">'
                         html +='<div class="col-lg-6 col-md-6 content-item">'
-                        html +='<img src="resources/images/1.jpg" alt="Image" class="tm-image">'
+                        html +='<img src="' + data[i].generalImage +'" alt="Image" class="tm-image">'
                         html +='</div>'
                         html +='<div class="col-lg-6 col-md-6 content-item content-item-1 background">'
                         html +='<a href="show_details?id=' + data[i].id + '"><h2 class="main-title text-center dark-blue-text">' + data[i].mark + " " + data[i].model  +'</h2></a>';

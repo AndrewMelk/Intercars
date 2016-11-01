@@ -29,6 +29,12 @@ public class CarExtractor implements ResultSetExtractor<Car> {
         car.setCity(resultSet.getString(13));
         car.setColour(resultSet.getString(14));
         car.setDescription(resultSet.getString(15));
+        car.setTitle(resultSet.getString(16));
+        car.setModeification(resultSet.getString(17));
+        car.setVin(resultSet.getString(18));
+        car.setUsername(resultSet.getString(19));
+        car.setUuid(resultSet.getLong(20));
+        car.setGeneralImage(resultSet.getString(21));
 
 
         return car;

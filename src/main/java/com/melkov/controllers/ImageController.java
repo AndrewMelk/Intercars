@@ -122,50 +122,57 @@ public class ImageController {
     /**
      * Upload multiple file using Spring Controller
      */
-    @RequestMapping(value = "/uploadMultipleFile", method = RequestMethod.POST)
-    public @ResponseBody
-    String uploadMultipleFileHandler(@RequestParam("name") String[] names,
-                                     @RequestParam("file") MultipartFile[] files, HttpServletRequest request) {
-
-        if (files.length != names.length)
-            return "Mandatory information missing";
-
-        String message = "";
-        for (int i = 0; i < files.length; i++) {
-            MultipartFile file = files[i];
-            String name = names[i];
-            try {
-                byte[] bytes = file.getBytes();
-
-                // Creating the directory to store file
-//                String rootPath = System.getProperty("catalina.home");
-                String rootPath = request.getSession().getServletContext().getRealPath("/resources/img");
-
-                File dir = new File(rootPath + File.separator + "tmpFiles");
-                if (!dir.exists())
-                    dir.mkdirs();
-
-                // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath()
-                        + File.separator + name);
-                BufferedOutputStream stream = new BufferedOutputStream(
-                        new FileOutputStream(serverFile));
-                stream.write(bytes);
-                stream.close();
-
-                logger.info("Server File Location="
-                        + serverFile.getAbsolutePath());
-
-                message = message + " 123 You successfully uploaded file=" + name + " ";
-            } catch (Exception e) {
-                return "You failed to upload " + name + " => " + e.getMessage();
-            }
-        }
-        return message;
-    }
+//    @RequestMapping(value = "/uploadMultipleFile", method = RequestMethod.POST)
+//    public @ResponseBody
+//    String uploadMultipleFileHandler(@RequestParam("name") String[] names,
+//                                     @RequestParam("file") MultipartFile[] files, HttpServletRequest request) {
+//
+//        if (files.length != names.length)
+//            return "Mandatory information missing";
+//
+//        String message = "";
+//        for (int i = 0; i < files.length; i++) {
+//            MultipartFile file = files[i];
+//            String name = names[i];
+//            try {
+//                byte[] bytes = file.getBytes();
+//
+//                // Creating the directory to store file
+////                String rootPath = System.getProperty("catalina.home");
+//                String rootPath = request.getSession().getServletContext().getRealPath("/resources/img");
+//
+//                File dir = new File(rootPath + File.separator + "tmpFiles");
+//                if (!dir.exists())
+//                    dir.mkdirs();
+//
+//                // Create the file on server
+//                File serverFile = new File(dir.getAbsolutePath()
+//                        + File.separator + name);
+//                BufferedOutputStream stream = new BufferedOutputStream(
+//                        new FileOutputStream(serverFile));
+//                stream.write(bytes);
+//                stream.close();
+//
+//                logger.info("Server File Location="
+//                        + serverFile.getAbsolutePath());
+//
+//                message = message + " 123 You successfully uploaded file=" + name + " ";
+//            } catch (Exception e) {
+//                return "You failed to upload " + name + " => " + e.getMessage();
+//            }
+//        }
+//        return message;
+//    }
 
     @RequestMapping("/insertImg")
-    public String insertImg(@ModelAttribute CarImage carImage){
+    public String insertImg(
+//            @ModelAttribute("uuid") Long uuid,
+            @ModelAttribute CarImage carImage,
+            HttpServletRequest request){
+
+//        logger.log(Level.SEVERE,request.getAttribute("uuid") + "");
+
+
         return "insert_img";
     }
 
@@ -173,7 +180,6 @@ public class ImageController {
     @RequestMapping("/insertImages")
     public String insertImages(HttpServletRequest request,
                                @ModelAttribute CarImage carImage) throws IOException {
-
         List<MultipartFile> files = carImage.getFiles();
         int carId = carImage.getCarId();
 

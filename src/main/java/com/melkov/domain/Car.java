@@ -8,6 +8,9 @@ public class Car {
 
 
     private long id;
+    private long uuid;
+
+
 
     // New property
     private String vehicleType;
@@ -33,6 +36,24 @@ public class Car {
     private String vin;
 
     private String username;
+
+    private String generalImage;
+
+    public String getGeneralImage() {
+        return generalImage;
+    }
+
+    public void setGeneralImage(String generalImage) {
+        this.generalImage = generalImage;
+    }
+
+    public long getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(long uuid) {
+        this.uuid = uuid;
+    }
 
     public String getUsername() {
         return username;
@@ -254,11 +275,26 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "consumption=" + consumption +
-                ", engineValue=" + engineValue +
-                ", model='" + model + '\'' +
+                "id=" + id +
+                ", uuid=" + uuid +
+                ", vehicleType='" + vehicleType + '\'' +
+                ", bodyType='" + bodyType + '\'' +
                 ", mark='" + mark + '\'' +
-                ", id=" + id +
+                ", model='" + model + '\'' +
+                ", engineValue=" + engineValue +
+                ", consumption=" + consumption +
+                ", carYear=" + carYear +
+                ", carPrice=" + carPrice +
+                ", transmissionType='" + transmissionType + '\'' +
+                ", typeOfDrive='" + typeOfDrive + '\'' +
+                ", mileage=" + mileage +
+                ", city='" + city + '\'' +
+                ", colour='" + colour + '\'' +
+                ", description='" + description + '\'' +
+                ", title='" + title + '\'' +
+                ", modeification='" + modeification + '\'' +
+                ", vin='" + vin + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }

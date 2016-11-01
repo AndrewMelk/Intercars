@@ -10,12 +10,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import javax.sql.DataSource;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
+import java.util.logging.Logger;
+
 /**
  * Created by andrew on 04.10.16.
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.melkov")
+@ComponentScan("com.melkov.controllers")
 public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -39,4 +46,6 @@ registry.addResourceHandler("/resources/**").addResourceLocations("/resources/")
         filter.setForceEncoding(true);
         return filter;
     }
+
+
 }

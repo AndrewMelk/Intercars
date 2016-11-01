@@ -8,7 +8,7 @@
   <spring:url value="/resources/css/bootstrap.min.css" var="bootCSS" ></spring:url>
   <spring:url value="/resources/css/dropdown.js" var="dropdownJS" ></spring:url>
   <spring:url value="/resources/css/templatemo-style.css" var="templatmo"/>
-  <%--<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>--%>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <%--<script src="/resources/js/cookie_search.js"></script>--%>
   <script src="/resources/js/select_mark.js"></script>
@@ -67,15 +67,7 @@
 
 <div class="container" id="cars-container">
 
-  <footer class="col-md-12 content" id="externals">
-    <div class="col-lg-6 col-md-6 last">
-      <img src="images/5.png" alt="Image" class="tm-image">
-    </div>
-    <div class="col-lg-6 col-md-6 background last about-text-container">
-      <h2 class="section-title">About This Website</h2>
-      <p class="about-text">Puzzle Template is brought to you by templatemo. Sed imperdiet quis ipsum a vulputate. Suspendisse sit amet nibh mi. In quis sapien a metus interdum hendrerit.</p>
-    </div>
-  </footer>
+
 
 </div>
 
@@ -83,7 +75,7 @@
 
 </div>
 
-<a href="/add_car">add car</a>
+<a href="/add_car">add carzzzz</a>
 
 </body>
 </html>

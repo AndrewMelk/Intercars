@@ -41,8 +41,10 @@
 </div>
 <center>
     <div>
-        <form:form method="post" action="/insert" modelAttribute="car">
+        <form:form method="post" action="/insert" modelAttribute="car" enctype="multipart/form-data">
             <table>
+                <tr>
+                <td>
                 <tr>
                     <td>Title :</td>
                     <td><form:label id="user" path="username" required="required">Andrew</form:label></td>
@@ -154,6 +156,24 @@
 
                     <td colspan="2"><a href="getList">Click Here to See User List</a></td>
                 </tr>
+                </td>
+                <td>
+                    <%--<form method="POST" action="uploadMultipleFile" enctype="multipart/form-data">--%>
+                        File1 to upload: <input type="file" name="file">
+
+                        Name1: <input type="text" name="name">
+
+
+                        File2 to upload: <input type="file" name="file">
+
+                        Name2: <input type="text" name="name">
+
+
+                        <input type="submit" value="Upload"> Press here to upload the file!
+
+                </td>
+                </tr>
+
             </table>
         </form:form>
     </div>

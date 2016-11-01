@@ -28,6 +28,7 @@ p {
     clip: rect(0px,573px,344px,1px);
     width: 100%;;
     height: auto;
+    min-height: 344px;
 }
 .fixed-header{
     width:100%;
@@ -494,7 +495,7 @@ p {
     margin-top: 128px;
     margin-left: 10px;
     float: left;
-    height: 100%;
+    height: inherit;
     width: 226px;
 
 }
@@ -773,4 +774,23 @@ select {
     border-radius: 4px;
     padding: 5px 5px;
     margin: 1px 7px;
+}
+
+
+#fromYear {
+    max-width: 20px;
+}
+
+.price{
+    border-radius: 4px;
+    padding: 5px 5px;
+    margin: 1px 7px;
+    max-width: 66px;
+}
+
+.engine_value{
+    border-radius: 4px;
+    padding: 5px 5px;
+    margin: 1px 7px;
+    max-width: 66px;
 }

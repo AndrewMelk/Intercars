@@ -9,12 +9,12 @@
     <database-model serializer="dbm" rdbms="MYSQL" format-version="2.5">
       <schema id="1" name="car"/>
       <table id="2" parent="1" name="car"/>
-      <table id="3" parent="1" name="user_roles"/>
-      <table id="4" parent="1" name="users"/>
-      <table id="5" parent="1" name="city"/>
-      <table id="6" parent="1" name="region"/>
-      <table id="7" parent="1" name="image_names_car"/>
-      <table id="8" parent="1" name="images"/>
+      <table id="3" parent="1" name="city"/>
+      <table id="4" parent="1" name="region"/>
+      <table id="5" parent="1" name="roles"/>
+      <table id="6" parent="1" name="user_roles"/>
+      <table id="7" parent="1" name="users"/>
+      <table id="8" parent="1" name="image_paths"/>
       <column id="9" parent="2" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
@@ -78,138 +78,116 @@
         <mandatory>1</mandatory>
         <data-type>varchar(45)</data-type>
       </column>
-      <key id="28" parent="2" name="PRIMARY">
+      <column id="28" parent="2" name="uuid">
+        <mandatory>1</mandatory>
+        <data-type>mediumtext</data-type>
+      </column>
+      <column id="29" parent="2" name="general_image">
+        <data-type>varchar(300)</data-type>
+      </column>
+      <key id="30" parent="2" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="29" parent="3" name="user_role_id">
+      <column id="31" parent="3" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="30" parent="3" name="username">
-        <mandatory>1</mandatory>
-        <data-type>varchar(45)</data-type>
-      </column>
-      <column id="31" parent="3" name="role">
-        <mandatory>1</mandatory>
-        <data-type>varchar(45)</data-type>
-      </column>
-      <index id="32" parent="3" name="fk_username_idx">
-        <columns>username</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="33" parent="3" name="uni_username_role">
-        <columns>role
-username</columns>
-        <desc-columns></desc-columns>
-        <unique>1</unique>
-      </index>
-      <key id="34" parent="3" name="PRIMARY">
-        <columns>user_role_id</columns>
-        <primary>1</primary>
-      </key>
-      <key id="35" parent="3" name="uni_username_role">
-        <columns>role
-username</columns>
-        <underlying-index>uni_username_role</underlying-index>
-      </key>
-      <foreign-key id="36" parent="3" name="fk_username">
-        <columns>username</columns>
-        <ref-key>~.users.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <column id="37" parent="4" name="username">
-        <mandatory>1</mandatory>
-        <data-type>varchar(45)</data-type>
-      </column>
-      <column id="38" parent="4" name="password">
-        <mandatory>1</mandatory>
-        <data-type>varchar(45)</data-type>
-      </column>
-      <column id="39" parent="4" name="enabled">
-        <mandatory>1</mandatory>
-        <data-type>tinyint(4)</data-type>
-        <default-expression>&apos;1&apos;</default-expression>
-      </column>
-      <key id="40" parent="4" name="PRIMARY">
-        <columns>username</columns>
-        <primary>1</primary>
-      </key>
-      <column id="41" parent="5" name="id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="42" parent="5" name="region_id">
+      <column id="32" parent="3" name="region_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="43" parent="5" name="name">
+      <column id="33" parent="3" name="name">
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="44" parent="5" name="phone_code">
+      <column id="34" parent="3" name="phone_code">
         <data-type>varchar(7)</data-type>
       </column>
-      <key id="45" parent="5" name="PRIMARY">
+      <key id="35" parent="3" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="46" parent="6" name="id">
+      <column id="36" parent="4" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="47" parent="6" name="name">
+      <column id="37" parent="4" name="name">
         <data-type>varchar(50)</data-type>
       </column>
-      <key id="48" parent="6" name="PRIMARY">
+      <key id="38" parent="4" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="49" parent="7" name="id">
+      <column id="39" parent="5" name="id">
         <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
+        <data-type>int(6)</data-type>
+        <sequence-identity>1</sequence-identity>
       </column>
-      <column id="50" parent="7" name="file_name">
-        <data-type>varchar(128)</data-type>
+      <column id="40" parent="5" name="role">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
       </column>
-      <column id="51" parent="7" name="file_data">
-        <data-type>longblob</data-type>
-      </column>
-      <index id="52" parent="7" name="image_names_car_car_id_fk">
+      <key id="41" parent="5" name="PRIMARY">
         <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="42" parent="6" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>int(6)</data-type>
+      </column>
+      <column id="43" parent="6" name="role_id">
+        <mandatory>1</mandatory>
+        <data-type>int(6)</data-type>
+      </column>
+      <index id="44" parent="6" name="role">
+        <columns>role_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <foreign-key id="53" parent="7" name="image_names_car_car_id_fk">
+      <index id="45" parent="6" name="user">
+        <columns>user_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <column id="46" parent="7" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(6)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="47" parent="7" name="login">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="48" parent="7" name="password">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <key id="49" parent="7" name="PRIMARY">
         <columns>id</columns>
-        <ref-key>~.car.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <column id="54" parent="8" name="id">
+        <primary>1</primary>
+      </key>
+      <column id="50" parent="8" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="55" parent="8" name="car_id">
+      <column id="51" parent="8" name="carId">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="56" parent="8" name="image">
-        <data-type>longblob</data-type>
+      <column id="52" parent="8" name="image_path">
+        <data-type>varchar(300)</data-type>
       </column>
-      <index id="57" parent="8" name="images_car_id_fk">
-        <columns>car_id</columns>
+      <index id="53" parent="8" name="image_paths_car_id_fk">
+        <columns>carId</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="58" parent="8" name="PRIMARY">
+      <key id="54" parent="8" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="59" parent="8" name="images_car_id_fk">
-        <columns>car_id</columns>
+      <foreign-key id="55" parent="8" name="image_paths_car_id_fk">
+        <columns>carId</columns>
         <ref-key>~.car.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
