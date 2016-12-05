@@ -29,8 +29,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Transactional
-    public void addCar(Car car) {
-        carDao.addCar(car);
+    public void addCar(Car car, String imagePath) {
+        carDao.addCar(car,imagePath);
     }
 
     @Transactional

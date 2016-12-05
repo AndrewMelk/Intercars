@@ -17,8 +17,8 @@ public class CarImageServiceImpl implements CarImageService {
     @Autowired
     CarImageDao carImageDao;
 
-    public void addImages(CarImage carImage) throws IOException {
-        carImageDao.addImages(carImage);
+    public void addImages(long carUUID, List<CarImage> carImages) throws IOException {
+        carImageDao.addImages(carUUID,carImages);
     }
 
     public List<MultipartFile> getImageList(int id) {

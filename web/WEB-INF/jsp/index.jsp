@@ -13,7 +13,7 @@
   <%--<script src="/resources/js/cookie_search.js"></script>--%>
   <script src="/resources/js/select_mark.js"></script>
   <script src="/resources/js/jquery.cookie.js"></script>
-  <script src="/resources/js/car_list.js"></script>
+  <%--<script src="/resources/js/car_list_new.js"></script>--%>
   <script src="/resources/js/jquery.leanModal.min.js"></script>
 
 
@@ -44,32 +44,66 @@
 
 
 
-<%@ include file="../jspf/header.jspf"%>
+<%--<%@ include file="../jspf/header.jspf"%>--%>
 
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-  <div class="modal-dialog">
-    <div class="loginmodal-container">
-      <h1>Login to Your Account</h1><br>
-      <form>
-        <input type="text" name="user" placeholder="Username">
-        <input type="password" name="pass" placeholder="Password">
-        <input type="submit" name="login" class="login loginmodal-submit" value="Login">
-      </form>
 
-      <div class="login-help">
-        <a href="#">Register</a> - <a href="#">Forgot Password</a>
-      </div>
-    </div>
-  </div>
-</div>
 
 <%@ include file="../jspf/sidebar.jspf"%>
 
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Start Bootstrap</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#">About</a>
+        </li>
+        <li>
+          <a href="#">Services</a>
+        </li>
+        <li>
+          <a href="#">Contact</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
 <div class="container" id="cars-container">
 
+  <!-- Page Header -->
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Page Heading
+        <small>Secondary Text</small>
+      </h1>
+    </div>
+  </div>
+  <!-- /.row -->
 
+  <!-- Projects Row -->
+  <div class="row" id="items">
 
+  <%--<!-- /.row -->--%>
 </div>
+<!-- /.container -->
+<!-- jQuery -->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap/bootstrap.min.js"></script>
 
 <div class="text-center footer">
 

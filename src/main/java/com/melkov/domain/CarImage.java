@@ -10,26 +10,17 @@ import java.util.List;
 public class CarImage {
 
     private int id;
-    private int carId;
-    private List<MultipartFile> Files;
+    private int carUUID;
+    private String pathToImage;
+
+    public CarImage(int id, int carUUID, String pathToImage) {
+        this.id = id;
+        this.carUUID = carUUID;
+        this.pathToImage = pathToImage;
+    }
 
     public CarImage() {
     }
-
-    public CarImage(int id, int carId, List<MultipartFile> files) {
-        this.id = id;
-        this.carId = carId;
-        Files = files;
-    }
-
-    public int getCarId() {
-        return carId;
-    }
-
-    public void setCarId(int carId) {
-        this.carId = carId;
-    }
-
 
     public int getId() {
         return id;
@@ -39,20 +30,28 @@ public class CarImage {
         this.id = id;
     }
 
-    public List<MultipartFile> getFiles() {
-        return Files;
+    public int getCarUUID() {
+        return carUUID;
     }
 
-    public void setFiles(List<MultipartFile> files) {
-        Files = files;
+    public void setCarUUID(int carUUID) {
+        this.carUUID = carUUID;
+    }
+
+    public String getPathToImage() {
+        return pathToImage;
+    }
+
+    public void setPathToImage(String pathToImage) {
+        this.pathToImage = pathToImage;
     }
 
     @Override
     public String toString() {
         return "CarImage{" +
                 "id=" + id +
-                ", carId=" + carId +
-                ", Files=" + Files +
+                ", carUUID=" + carUUID +
+                ", pathToImage='" + pathToImage + '\'' +
                 '}';
     }
 }

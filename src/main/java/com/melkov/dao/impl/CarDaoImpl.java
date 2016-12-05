@@ -44,21 +44,27 @@ public class CarDaoImpl implements CarDao {
         return carList;
     }
 
-    public void addCar(Car car) {
-        String sql = "INSERT INTO car "
+    public void addCar(Car car, String imagePath) {
+        String addCarSql = "INSERT INTO car "
                 + "(user_name, mark, model, engine_value, consumption, vehicle_type, bodyType, carYear" +
                 ", carPrice, transmissionType, typeOfDrive, mileage, city, colour, description, title" +
                 ", modification, vin, uuid, general_image) VALUES (?,?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?,?,?,?)";
 
+        String addImageSql = "INSERT INTO image_paths " +
+                "(carId, image_path) VALUES " + "(?,?)";
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
         jdbcTemplate.update(
-                sql,
+                addCarSql,
                 new Object[] {"Andrew", car.getMark(), car.getModel(),
                         car.getEngineValue(), car.getConsumption(), car.getVehicleType(),
                         car.getBodyType(), car.getCarYear(), car.getCarPrice(), car.getTransmissionType(),
                         car.getTypeOfDrive(), car.getMileage(), car.getCity(), car.getColour(),
                         car.getDescription(),car.getTitle(), car.getModeification(), car.getVin(), car.getUuid(), car.getGeneralImage()});
+
+//        jdbcTemplate.update(
+//                addImageSql,new Object[]{car.getId(),}
+//        )
         log.log(Level.SEVERE,"in addCar");
     }
 
