@@ -1,0 +1,109 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<form:form action="/usedBySearchBean" modelAttribute="searchBean" method="get">
+    <%--<button id="toggle_default_div">Open default search</button>--%>
+    <%--<button class="slide left default">&nbsp;</button>--%>
+    <div class="select search">
+        <form:select id="first-choice" name="mark" path="mark">
+            <option selected value="All">Mark</option>
+            <c:forEach var="carMarksTop" items="${carMarksList}">
+                <option value="${carMarksTop.carMark}">${carMarksTop.carMark}</option>
+            </c:forEach>
+            <option value="">-------</option>
+            <c:forEach var="notTopCarMarksList" items="${notTopCarMarksList}">
+                <option value="${notTopCarMarksList.carMark}">${notTopCarMarksList.carMark}</option>
+            </c:forEach>
+            <%--<option disabled>----------</option>--%>
+            <%--<c:forEach var="carMarksTop" items="${carMarksList}">--%>
+            <%--<option value="${carMarksTop.carMark}">${carMarksTop.carMark}</option>--%>
+            <%--</c:forEach>--%>
+        </form:select>
+    </div>
+
+    <div class="select search">
+        <form:select id="second-choice" name="model" path="model">
+            <option selected value="null">Model</option>
+        </form:select>
+
+    </div>
+
+    <h3 class="slide left default search">&nbsp;</h3>
+
+
+
+
+
+    <%--<div id="toggle_default_div">--%>
+    <%--style="cursor: pointer">Open default search</>--%>
+    <%--</div>--%>
+
+    <div id="default_div" class="search" style="display: none;">
+        Car Years:
+        <br>
+
+        <form:select id="fromYear" path="fromCarYear" name="fromCarYear">
+            <form:option value="0">From:</form:option>
+
+            <c:forEach var="carYear" items="${carYears}">
+
+                <form:option value="${carYear}">${carYear}</form:option>
+
+
+            </c:forEach>
+        </form:select>
+        <br>
+
+        <form:select id="toYear" path="toCarYear" name="fromCarYear">
+            <form:option value="0">To:</form:option>
+            <c:forEach var="carYear" items="${carYears}">
+                <form:option value="${carYear}">${carYear}</form:option>
+            </c:forEach>
+        </form:select>
+        <br>
+        Price:
+        <br>
+
+        <input type="text" id="fromPrice" class="price search" id="fromPrice" name="fromCarPrice" value="0" placeholder="From:"/>
+        <br>
+
+        <input type="text" id="toPrice" class="price search" id="toPrice" name="toCarPrice" value="999999" placeholder="To:"/>
+        <br>
+        Engine Value:
+        <br>
+
+        <input type="text" id="fromValue" class="engine_value search"  id="fromPrice" value="0" name="fromEngineValue" placeholder="From:"/>
+        <br>
+
+        <input type="text" id="toValue" class="engine_value search" id="toPrice" value="10" name="toEngineValue" placeholder="To:"/>
+
+        <br>
+        Body Type:
+        <br>
+
+        <form:select id="bodyType" class="search" path="bodyType" name="bodyType">
+            <form:option value="All">All</form:option>
+            <c:forEach var="bodyType" items="${bodyType}">
+                <form:option value="${bodyType}">${bodyType}</form:option>
+            </c:forEach>
+        </form:select>
+        <br>
+
+        Transmission Type:
+        <br>
+
+        <form:select id="transmissionType" class="search" path="transmissionType" name="transmissionType">
+            <form:option value="All">All</form:option>
+            <c:forEach var="transmissionType" items="${transmissionTypes}">
+                <form:option value="${transmissionType}">${transmissionType}</form:option>
+            </c:forEach>
+        </form:select>
+        <br>
+
+        <select></select>
+        <select></select>
+        <select></select>
+
+    </div>
+
+    <form:button class="slide left submit">&nbsp;</form:button>
+</form:form>

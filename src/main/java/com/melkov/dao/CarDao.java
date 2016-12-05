@@ -16,7 +16,7 @@ public interface CarDao {
 
     public List<Car> getAllCar();
 
-    public void addCar(Car car);
+    public void addCar(Car car, String imagePath);
 
     public void removeCar(String id);
 

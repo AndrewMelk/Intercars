@@ -2,7 +2,6 @@ package com.melkov.dao.impl;
 
 import com.melkov.dao.CarImageDao;
 import com.melkov.domain.CarImage;
-import com.melkov.jdbc.mappers.CarImageRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,29 +22,11 @@ public class CarImageDaoImpl implements CarImageDao {
     @Autowired
     DataSource dataSource;
 
-    public void addImages(CarImage carImage) throws IOException {
-
-        String sql = "INSERT into images (car_id, image) " + "VALUES (?,?)";
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-            logger.log(Level.SEVERE, carImage.toString());
-
-        for (MultipartFile multipartFile : carImage.getFiles()){
-            jdbcTemplate.update(sql, new Object[]{carImage.getCarId(), multipartFile.getBytes()});
-        }
-
-
-
-
+    public void addImages(long carUUID, List<CarImage> carImages) throws IOException {
 
     }
 
-    public List<MultipartFile> getImageList(int carId) {
-        List<MultipartFile> list = new ArrayList<MultipartFile>();
-        String sql = "SELECT * FROM images WHERE car_id=" + carId;
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-
-
-        list = jdbcTemplate.query(sql, new CarImageRowMapper());
-        return list;
+    public List<MultipartFile> getImageList(long carUUID) {
+        return null;
     }
 }

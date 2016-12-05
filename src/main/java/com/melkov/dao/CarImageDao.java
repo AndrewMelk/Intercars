@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface CarImageDao {
 
-    public void addImages(CarImage carImage) throws IOException;
-    public List<MultipartFile> getImageList(int carId);
+    public void addImages(long carUUID, List<CarImage> carImages) throws IOException;
+    public List<MultipartFile> getImageList(long carUUID);
 
 }

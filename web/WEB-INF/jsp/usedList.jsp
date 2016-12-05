@@ -10,9 +10,12 @@
     <spring:url value="/resources/css/templatemo-style.css" var="templatmo"/>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <%--<script src="/resources/js/cookie_search.js"></script>--%>
     <script src="/resources/js/select_mark.js"></script>
-    <script src="/resources/js/car_list.js"></script>
     <script src="/resources/js/jquery.cookie.js"></script>
+    <%--<script src="/resources/js/car_list_new.js"></script>--%>
+    <script src="/resources/js/jquery.leanModal.min.js"></script>
+
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,98 +27,171 @@
     <script type="text/javascript">
 
     </script>
-
     <script>
         $(document).ready(function(){
-            $(".slide.left").click(function(){
+            $(".slide.left.default").click(function(){
                 $("#default_div").toggle(1000);
             });
         });
     </script>
 
 
+
     <title>InterCars</title>
 </head>
 
 <body>
-<div class="fixed-header">
+
+
+
+<%--<%@ include file="../jspf/header.jspf"%>--%>
+
+
+
+<%--<%@ include file="../jspf/sidebar.jspf"%>--%>
+
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">InterCars</a>
+            <a class="navbar-brand" href="#">Start Bootstrap</a>
         </div>
-        <nav class="main-menu">
-            <ul>
-                <li><a href="#home">Б/у Авто</a></li>
-                <li><a href="#services">Новые Авто</a></li>
-                <li><a href="#clients">Новости</a></li>
-                <li><a class="external" href="https://www.facebook.com/templatemo" target="_blank">External</a></li>
-                <li><a href="#contact">Контакты</a></li>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#">Services</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
             </ul>
-        </nav>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
-</div>
+    <!-- /.container -->
+</nav>
 
-<%--<%@ include file="../jspf/sidebar.jspf"%>--%>
+<!-- Page Content -->
+<div class="container" id="cars-container">
+
+    <!-- Page Header -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Page Heading
 
 
-<div class="container">
-    <section class="col-md-12 content" id="home">
-        <%--<c:forEach var="car" items="${carList}">--%>
-            <%--<div class="col-lg-6 col-md-6 content-item">--%>
-                <%--<img src="resources/images/1.jpg" alt="Image" class="tm-image">--%>
-            <%--</div>--%>
+    <!-- /.row -->
+<%--modal--%>
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
 
-            <%--<div class="col-lg-6 col-md-6 content-item content-item-1 background">--%>
+    <!-- The Modal -->
+    <div style="overflow:scroll; height:400px;" id="myModal" class="modal">
 
-                <%--<a href="show_details?id=${car.id}"><h2 class="main-title text-center dark-blue-text">${car.mark} ${car.model}</h2></a>--%>
-                <%--<h1 id="price">$ ${car.carPrice}</h1>--%>
-                <%--<p>Объем двигателя: ${car.engineValue}</p>--%>
-                <%--<p>Расход Топлива: ${car.consumption}</p>--%>
-                <%--<p>Пробег: ${car.mileage}</p>--%>
-                <%--<p id="description">${car.description}</p>--%>
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">×</span>
+                <h2>Modal Header</h2>
+            </div>
+            <div class="modal-body">
 
-                <%--<button type="button" class="btn btn-big dark-blue-bordered-btn"><a href="edit?id=${car.id}">Edit</a></button>--%>
-                <%--<button type="button" class="btn btn-big dark-blue-btn"><a href="delete?id=${car.id}">Delete</a></button>--%>
-            <%--</div>--%>
-        <%--</c:forEach>--%>
+                <%@ include file="../jspf/search_row.jspf"%>
 
-        /*----------------------------------------------------------------------*/
-
-        <div class="col-lg-6 col-md-6 content-item content-item-1 background">
-            <%--<h2 class="main-title text-center dark-blue-text">${car.mark} ${car.model}</h2>--%>
+            </div>
+            <div class="modal-footer">
+                <h3>Modal Footer</h3>
+            </div>
         </div>
 
-    </section>
-
-
-
-
-    <%--<footer class="col-md-12 content" id="externals">--%>
-        <%--<div class="col-lg-6 col-md-6 last">--%>
-            <%--<img src="images/5.png" alt="Image" class="tm-image">--%>
-        <%--</div>--%>
-        <%--<div class="col-lg-6 col-md-6 background last about-text-container">--%>
-            <%--<h2 class="section-title">About This Website</h2>--%>
-            <%--<p class="about-text">Puzzle Template is brought to you by templatemo. Sed imperdiet quis ipsum a vulputate. Suspendisse sit amet nibh mi. In quis sapien a metus interdum hendrerit.</p>--%>
-        <%--</div>--%>
-    <%--</footer>--%>
-
-</div>
-
-<div class="text-center footer">
-    <div class="container">
-        Copyright @ 2084 Company Name
-
-        | Design: <a href="http://www.templatemo.com/tm-477-puzzle" target="_parent" title="Puzzle Template">Puzzle</a>
     </div>
-</div>
 
-<a href="/add_car">add car</a>
+    <script>
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <%--modal--%>
+            </h1>
+        </div>
+    </div>
+    <!-- Projects Row -->
+    <div class="row" id="items">
+        <c:forEach var="car" items="${carList}">
+            <div class="col-md-4 portfolio-item">
+                <a href="">
+                    <img class="img-responsive" src="${car.generalImage}" alt="">
+                </a>
+                <h3>
+                    <a href="#"> ${car.mark}  ${car.model}</a>
+                </h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+            </div>
+        </c:forEach>
+        <%--<div class="col-md-4 portfolio-item">--%>
+        <%--<a href="#">--%>
+        <%--<img class="img-responsive" src="http://placehold.it/700x400" alt="">--%>
+        <%--</a>--%>
+        <%--<h3>--%>
+        <%--<a href="#">Project Name</a>--%>
+        <%--</h3>--%>
+        <%--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>--%>
+        <%--</div>--%>
+        <%--<div class="col-md-4 portfolio-item">--%>
+        <%--<a href="#">--%>
+        <%--<img class="img-responsive" src="http://placehold.it/700x400" alt="">--%>
+        <%--</a>--%>
+        <%--<h3>--%>
+        <%--<a href="#">Project Name</a>--%>
+        <%--</h3>--%>
+        <%--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>--%>
+        <%--</div>--%>
+        <%--</div>--%>
+        <%--<!-- /.row -->--%>
+    </div>
+    <!-- /.container -->
+    <!-- jQuery -->
+    <<!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <div class="text-center footer">
+
+    </div>
+
+    <a href="/add_car">add carzzzz</a>
 
 </body>
 </html>

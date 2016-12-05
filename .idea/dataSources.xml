@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="681484506">
-    <data-source source="LOCAL" name="MySQL - car@localhost" uuid="0abc92ca-8c5b-4c0c-ba2a-3ad44895a802">
+  <component name="DataSourceManagerImpl" format="xml" hash="399800607">
+    <data-source source="LOCAL" name="MySQL - car@localhost" uuid="5ef107d0-cdd8-41e5-bd4d-b8513fbd330e">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
@@ -15,7 +15,7 @@
         <property name="yearIsDateType" value="false" />
       </driver-properties>
     </data-source>
-    <data-source source="LOCAL" name="MySQL - cars@localhost" uuid="657594fe-8acb-4633-9628-bbbe14f469de">
+    <data-source source="LOCAL" name="MySQL - cars@localhost" uuid="1d47e166-387c-407b-9712-fd68ffde8fea">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
