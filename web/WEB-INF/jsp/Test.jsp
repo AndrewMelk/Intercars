@@ -10,10 +10,35 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        $(document).ready(
+                function () {
+                    $.getJSON('usedByMarkModel', {
+                        mark : 'Audi',
+                        model : '100',
+                        ajax : 'true'
+
+                    },function (data) {
+
+                        var html = '';
+                        var len = data.length;
+
+                        for ( var i = 0; i < len; i++){
+                            html += '<h1>' + 'mark' + data[i].mark + '</h1>';
+
+
+                        }
+
+                        $('#test').html(html)
+
+                    })
+
+                }
+        )
+    </script>
 </head>
 <body>
-    <c:forEach var="image" items="${list}">
-        <img src="${image}">
-    </c:forEach>
+    <div id="test"></div>
 </body>
 </html>

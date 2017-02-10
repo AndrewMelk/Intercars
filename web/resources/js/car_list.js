@@ -49,7 +49,7 @@ $(document).ready(
         });
         
         
-        $('.sidebar').change(
+        $('#menu').change(
 
             function() {
 

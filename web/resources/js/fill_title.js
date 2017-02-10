@@ -3,12 +3,21 @@
  */
 $(document).ready(
     function () {
-        $('#first-choice,#second-choice').change(
+        var title ='';
+        $('#first-choice').change(
+            
             function () {
-                $('#title').val($('#first-choice').val() + ' ' + $('#second-choice').val())
+                title += $('#first-choice').val();
+                $('#title').val(title)
             }
         )
-        
+        $('#second-choice').change(
+
+            function () {
+                title += ' ' + $('#second-choice').val();
+                $('#title').val(title)
+            }
+        )
     }
     
 )

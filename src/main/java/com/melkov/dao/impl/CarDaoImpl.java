@@ -178,7 +178,7 @@ public class CarDaoImpl implements CarDao {
 
 
     public List<Car> getCarsByMarkModel(String mark, String model) {
-
+        log.log(Level.SEVERE, mark + " " + model);
         List<Car> carList = new ArrayList<Car>();
         String sql = "select * from car where mark=" + "'" + mark + "'" + " AND "+ "model="  +"'" + model + "'";
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.metamodel.ListAttribute;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -40,15 +41,15 @@ public class MainController {
 
 	@RequestMapping("/")
 	public String redirect(){
-		return "redirect:/getList";
+		return "redirect:/carList";
 	}
 
 
-	@RequestMapping(value = "/getList", method = RequestMethod.GET)
+	@RequestMapping(value = "/carList", method = RequestMethod.GET)
 	public ModelAndView getData(@ModelAttribute SearchBean searchBean) {
 
 
-		List<Car> carList = carService.getAllCar();
+		List<Car> cars = carService.getAllCar();
 		List<CarMarks> carMarksList = carMarksService.getTopCarMarks();
 		List<CarMarks> notTopCarMarksList = carMarksService.getNotTopMarks();
 		List<Integer> carYears = new ArrayList<Integer>();
@@ -65,7 +66,7 @@ public class MainController {
 		transmissionTypes.add("Автоматическая");
 		transmissionTypes.add("Вариатор");
 
-		ModelAndView model = new ModelAndView("index1");
+		ModelAndView model = new ModelAndView("used_cars");
 
 		Integer year = Calendar.getInstance().get(Calendar.YEAR);
 		for (int i = year; i>=1950; i--){
@@ -75,7 +76,7 @@ public class MainController {
 		model.addObject("bodyType", bodyType);
 		model.addObject("carYears",carYears);
 		model.addObject("carMarksList", carMarksList);
-		model.addObject("carList", carList);
+		model.addObject("cars", cars);
 		model.addObject("notTopCarMarksList", notTopCarMarksList);
 		model.addObject("newCar", new Car());
 
@@ -179,10 +180,10 @@ public class MainController {
 
 			mav.addObject("carId", car.getId());
 		}else {
-			return "redirect:/getList";
+			return "redirect:/carList";
 //			return "redirect:/insertImg";
 		}
-		return "redirect:/getList";
+		return "redirect:/carList";
 	}
 
 
@@ -273,44 +274,55 @@ public class MainController {
 		return mav;
 	}
 	@RequestMapping("/usedByMarkModel")
-	public @ResponseBody List<Car> showUsedCarByParam(@RequestParam String mark,
+	public @ResponseBody ModelAndView showUsedCarByParam(@RequestParam String mark,
 										   @RequestParam String model){
 
 		List<Car> carList = carService.getCarsByMarkModel(mark, model);
 		List<CarMarks> carMarksList = carMarksService.getTopCarMarks();
-		ModelAndView mav = new ModelAndView("usedList");
+		ModelAndView mav = new ModelAndView("Test");
 //		request.getSession().setAttribute("mark",mark);
 //		request.getSession().setAttribute("model",model);
 		mav.addObject("carMarksList", carMarksList);
 		mav.addObject("carList", carList);
 
-		return carList;
+		return mav;
 
 	}
 
 
 	@RequestMapping(value = "/usedBySearchBean",
-//			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 			method = RequestMethod.GET)
-	public ModelAndView usedBySearchBean(@ModelAttribute SearchBean searchBean){
+	public @ResponseBody List<Car> usedBySearchBean(@ModelAttribute SearchBean searchBean){
 
-		ModelAndView mav = new ModelAndView("index1");
+//		ModelAndView mav = new ModelAndView("index1");
 		List<Car> carList = carService.carListByParameters(searchBean);
-		mav.addObject("carList" , carList);
+//		mav.addObject("carList" , carList);
 		logger.log(Level.SEVERE, carList.toString());
+		return carList;
+	}
+
+	@RequestMapping(value = "/usedCars", method = RequestMethod.GET)
+	public ModelAndView usedCars(@ModelAttribute SearchBean searchBean){
+		ModelAndView mav = new ModelAndView("used_cars");
+		List<Car> cars = carService.carListByParameters(searchBean);
+		mav.addObject("cars",cars);
+		logger.log(Level.SEVERE,cars.toString());
 		return mav;
 	}
 
 	@RequestMapping("/dropdown")
-	public ModelAndView loadMarks(){
+	public @ResponseBody List<CarMarks> loadMarks(){
 
 		List<CarMarks> carMarksList = carMarksService.getTopCarMarks();
 		ModelAndView model = new ModelAndView("dropdown");
 		model.addObject("carMarksList", carMarksList);
 
 
-		return model;
+		return carMarksList;
 	}
+
+
 
 	@RequestMapping(value = "/loadModels", method = RequestMethod.GET)
 	public @ResponseBody
@@ -332,9 +344,9 @@ public class MainController {
 	}
 
 
-	@RequestMapping("/test")
+	@RequestMapping(value = "/test/cookie", method = RequestMethod.GET)
 	public ModelAndView test(){
-		ModelAndView mav = new ModelAndView("index1");
+		ModelAndView mav = new ModelAndView("test1");
 
 		return mav;
 	}

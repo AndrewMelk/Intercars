@@ -14,10 +14,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="/resources/js/jquery-3.1.1.js"></script>
-    <script src="/resources/js/select_mark.js"></script>
+
     <script src="/resources/js/jquery.cookie.js"></script>
-    <script src="/resources/js/cookie_search.js"></script>
-    <script src="/resources/js/car_list_new.js"></script>
+    <script src="/resources/js/load_marks.js"></script>
+    <script src="/resources/js/select_mark.js"></script>
+    <%--<script src="/resources/js/cookie_search.js"></script>--%>
+    <%--<script src="/resources/js/car_list_new.js"></script>--%>
 
 
     <!--[if lte IE 8]><script src="/resources/assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -83,59 +85,52 @@
         <section>
 
             <ul class="links">
-                <form:form action="/usedBySearchBean" modelAttribute="searchBean" method="get">
+                <form:form action="/usedCars" modelAttribute="searchBean" method="get">
 
-                <li>
-                    <form:select id="first-choice" name="mark" path="mark">
-                        <option selected value="All">Mark</option>
-                        <c:forEach var="carMarksTop" items="${carMarksList}">
-                            <option value="${carMarksTop.carMark}">${carMarksTop.carMark}</option>
-                        </c:forEach>
-                        <option value="">-------</option>
-                        <c:forEach var="notTopCarMarksList" items="${notTopCarMarksList}">
-                            <option value="${notTopCarMarksList.carMark}">${notTopCarMarksList.carMark}</option>
-                        </c:forEach>
-                        <%--<option disabled>----------</option>--%>
-                        <%--<c:forEach var="carMarksTop" items="${carMarksList}">--%>
-                        <%--<option value="${carMarksTop.carMark}">${carMarksTop.carMark}</option>--%>
-                        <%--</c:forEach>--%>
-                    </form:select>
+                    <li>
+                        <form:select id="first-choice" name="mark" path="mark">
+                            <option selected value="All">Mark</option>
 
-                </li>
-                <li>
-                    <form:select id="second-choice" name="model" path="model">
-                        <option selected value="null">Model</option>
-                    </form:select>
-                </li>
-                <li>
-                    Car Years:
-                    <br>
+                        </form:select>
 
-                    <form:select id="fromYear" path="fromCarYear" name="fromCarYear">
-                        <form:option value="0">From:</form:option>
+                    </li>
+                    <li>
+                        <form:select id="second-choice" name="model" path="model">
+                            <option selected value="null">Model</option>
+                        </form:select>
+                    </li>
+                    <li>
+                        Car Years:
+                        <br>
 
-                        <c:forEach var="carYear" items="${carYears}">
+                        <form:select id="fromYear" path="fromCarYear" name="fromCarYear">
+                            <form:option value="0">From:</form:option>
 
-                            <form:option value="${carYear}">${carYear}</form:option>
+                            <c:forEach var="carYear" items="${carYears}">
+
+                                <form:option value="${carYear}">${carYear}</form:option>
 
 
-                        </c:forEach>
-                    </form:select>
-                    <br>
+                            </c:forEach>
+                        </form:select>
+                        <br>
 
-                    <form:select id="toYear" path="toCarYear" name="fromCarYear">
-                        <form:option value="0">To:</form:option>
-                        <c:forEach var="carYear" items="${carYears}">
-                            <form:option value="${carYear}">${carYear}</form:option>
-                        </c:forEach>
-                    </form:select>
-                </li>
-                <li>
-                    <a href="#">
-                        <h3>Etiam sed consequat</h3>
-                        <p>Porta lectus amet ultricies</p>
-                    </a>
-                </li>
+                        <form:select id="toYear" path="toCarYear" name="fromCarYear">
+                            <form:option value="0">To:</form:option>
+                            <c:forEach var="carYear" items="${carYears}">
+                                <form:option value="${carYear}">${carYear}</form:option>
+                            </c:forEach>
+                        </form:select>
+                    </li>
+                    <li>
+                        <form:button value="submit">Search</form:button>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <h3>Etiam sed consequat</h3>
+                            <p>Porta lectus amet ultricies</p>
+                        </a>
+                    </li>
                 </form:form>
             </ul>
         </section>
@@ -151,35 +146,35 @@
 
     <!-- Main -->
     <div id="main">
-        <%--<c:forEach var="car" items="${carList}">--%>
-        <%--<!-- Post -->--%>
+        <c:forEach var="car" items="${cars}">
+        <!-- Post -->
 
-        <%--<article class="post">--%>
-            <%--<header>--%>
-                <%--<div class="title">--%>
-                    <%--<h2><a href="#">${car.mark} ${car.model} (${car.carYear})</a></h2>--%>
-                    <%--<h2>${car.carPrice}$</h2>--%>
-                    <%--<p></p>--%>
-                <%--</div>--%>
-                <%--<div class="meta">--%>
-                    <%--<time class="published" datetime="2015-11-01">November 1, 2015</time>--%>
-                    <%--<a href="#" class="author"><span class="name">Jane Doe</span><img src="/resources/images/avatar.jpg" alt="" /></a>--%>
-                <%--</div>--%>
-            <%--</header>--%>
-            <%--<a href="#" class="image featured"><img src="${car.generalImage}" alt="" /></a>--%>
-            <%--<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>--%>
-            <%--<footer>--%>
-                <%--<ul class="actions">--%>
-                    <%--<li><a href="#" class="button big">Continue Reading</a></li>--%>
-                <%--</ul>--%>
-                <%--<ul class="stats">--%>
-                    <%--<li><a href="#">General</a></li>--%>
-                    <%--<li><a href="#" class="icon fa-heart">28</a></li>--%>
-                    <%--<li><a href="#" class="icon fa-comment">128</a></li>--%>
-                <%--</ul>--%>
-            <%--</footer>--%>
-        <%--</article>--%>
-        <%--</c:forEach>--%>
+        <article class="post">
+        <header>
+        <div class="title">
+        <h2><a href="#">${car.mark} ${car.model} (${car.carYear})</a></h2>
+        <h2>${car.carPrice}$</h2>
+        <p></p>
+        </div>
+        <div class="meta">
+        <time class="published" datetime="2015-11-01">November 1, 2015</time>
+        <a href="#" class="author"><span class="name">Jane Doe</span><img src="/resources/images/avatar.jpg" alt="" /></a>
+        </div>
+        </header>
+        <a href="#" class="image featured"><img src="${car.generalImage}" alt="" /></a>
+        <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+        <footer>
+        <ul class="actions">
+        <li><a href="#" class="button big">Continue Reading</a></li>
+        </ul>
+        <ul class="stats">
+        <li><a href="#">General</a></li>
+        <li><a href="#" class="icon fa-heart">28</a></li>
+        <li><a href="#" class="icon fa-comment">128</a></li>
+        </ul>
+        </footer>
+        </article>
+        </c:forEach>
         <!-- Main -->
 
 
@@ -187,8 +182,8 @@
     </div>
     <!-- Pagination -->
     <%--<ul class="actions pagination">--%>
-        <%--<li><a href="" class="disabled button big previous">Previous Page</a></li>--%>
-        <%--<li><a href="#" class="button big next">Next Page</a></li>--%>
+    <%--<li><a href="" class="disabled button big previous">Previous Page</a></li>--%>
+    <%--<li><a href="#" class="button big next">Next Page</a></li>--%>
     <%--</ul>--%>
     <!-- Sidebar -->
     <section id="sidebar">
